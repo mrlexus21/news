@@ -43,6 +43,11 @@ class CategoryTableSeeder extends Seeder
                 'name' => 'Спорт',
                 'slug' => 'sport',
                 'created_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Остальное',
+                'slug' => 'other',
+                'created_at' => Carbon::now(),
             ]
         ]);
     }

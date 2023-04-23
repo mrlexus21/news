@@ -11,6 +11,10 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dd(User::inRandomOrder()->first());
+        $post = Post::orderBy('published_at', 'desc')->limit(10);
+        dd($post);
+        //dump($post->getMiddleFormatDateAttribute());
+        //dump($post->getMiddleShortMonthFormatDateAttribute());
+        //dump($post->getFullShortTimeFormatDateAttribute());
     }
 }
