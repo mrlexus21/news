@@ -18,24 +18,19 @@
     <link rel="icon" href="favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{{ asset('css/core-style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <!-- Responsive CSS -->
-    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/public/app.css') }}">
 </head>
 
-<body>
+<body class="@yield('body_class')">
 <!-- Header Area Start -->
 <header class="header-area">
     <div class="top-header">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <!-- Breaking News Area -->
-                @include('partials.blocks.public-header-breking-news', compact('lastPosts'))
+                @isset($lastPosts)
+                    @include('partials.blocks.public-header-breking-news', compact('lastPosts'))
+                @endisset
                 <!-- Stock News Area -->
                 @include('partials.blocks.public-header-stocks')
 
@@ -61,48 +56,50 @@
             </div>
         </div>
     </div>
-    <!-- Bottom Header Area -->
-    <div class="bottom-header">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <div class="main-menu">
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gazetteMenu" aria-controls="gazetteMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
-                            <div class="collapse navbar-collapse" id="gazetteMenu">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="{{ route('home') }}">@lang('main.today')</a>
-                                    </li>
-                                    @foreach($categories as $category)
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">{{ $category->name }}</a>
+    @isset($categories)
+        <!-- Bottom Header Area -->
+        <div class="bottom-header">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12">
+                        <div class="main-menu">
+                            <nav class="navbar navbar-expand-lg">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gazetteMenu" aria-controls="gazetteMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
+                                <div class="collapse navbar-collapse" id="gazetteMenu">
+                                    <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="{{ route('home') }}">@lang('main.today')</a>
                                         </li>
-                                    @endforeach
-                                </ul>
-                                <!-- Search Form -->
-                                <div class="header-search-form mr-auto">
-                                    <form action="#">
-                                        <input type="search" placeholder="@lang('main.search_placeholder')" id="search" name="search">
-                                        <input class="d-none" type="submit" value="submit">
-                                    </form>
+                                        @foreach($categories as $category)
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">{{ $category->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <!-- Search Form -->
+                                    <div class="header-search-form mr-auto">
+                                        <form action="#">
+                                            <input type="search" placeholder="@lang('main.search_placeholder')" id="search" name="search">
+                                            <input class="d-none" type="submit" value="submit">
+                                        </form>
+                                    </div>
+                                    <!-- Search btn -->
+                                    <div id="searchbtn">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </div>
+                                    <div id="userhbtn">
+                                        <a href="{{ route('login') }}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <!-- Search btn -->
-                                <div id="searchbtn">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                                <div id="userhbtn">
-                                    <a href="{{ route('login') }}">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </nav>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endisset
 </header>
 <!-- Header Area End -->
 
@@ -110,24 +107,26 @@
 
 <!-- Footer Area Start -->
 <footer class="footer-area bg-img background-overlay">
-    <!-- Top Footer Area -->
-    <div class="top-footer-area section_padding_100_70">
-        <div class="container">
-            <div class="row">
-                <!-- Single Footer Widget -->
-                @foreach($categories as $category)
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-footer-widget">
-                            <div class="footer-widget-title">
-                                <h4 class="font-pt">{{ $category->name }}</h4>
+    @isset($categories)
+        <!-- Top Footer Area -->
+        <div class="top-footer-area section_padding_100_70">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Footer Widget -->
+                    @foreach($categories as $category)
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="single-footer-widget">
+                                <div class="footer-widget-title">
+                                    <h4 class="font-pt">{{ $category->name }}</h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-                <!-- Single Footer Widget -->
+                    @endforeach
+                    <!-- Single Footer Widget -->
+                </div>
             </div>
         </div>
-    </div>
+    @endisset
 
     <!-- Bottom Footer Area -->
     <div class="bottom-footer-area">
@@ -147,16 +146,7 @@
 </footer>
 <!-- Footer Area End -->
 
-<!-- jQuery (Necessary for All JavaScript Plugins) -->
-<script src="{{ asset('js/jquery/jquery-2.2.4.min.js') }}"></script>
-<!-- Popper js -->
-<script src="{{ asset('js/popper.min.js') }}"></script>
-<!-- Bootstrap js -->
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<!-- Plugins js -->
-<script src="{{ asset('js/plugins.js') }}"></script>
-<!-- Active js -->
-<script src="{{ asset('js/active.js') }}"></script>
+<script src="{{ asset('/js/public/app.js') }}"></script>
 
 </body>
 
