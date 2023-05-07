@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +26,14 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('get-logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
-Route::get('/admin', [\App\Http\Controllers\HomeController::class, 'index'])->name('admin');
+Route::middleware('roles:admin,Chief-editor,Editor')->group(function () {
+    Route::get('/admin', [HomeController::class, 'index'])->name('admin');
+});
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+Route::get('/', [IndexController::class, 'index'])->name('home');
 
-Route::get('test', \App\Http\Controllers\TestController::class);
+Route::get('test', [TestController::class, '__invoke']);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

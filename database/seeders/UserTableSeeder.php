@@ -32,6 +32,12 @@ class UserTableSeeder extends Seeder
                 'role_id' => 3,
                 'password' => bcrypt('chiefrpass'),
             ],
+            [
+                'name' => 'User',
+                'email' => 'user@example.com',
+                'role_id' => 4,
+                'password' => bcrypt('userpass'),
+            ]
         ];
 
         foreach ($users as $user) {
