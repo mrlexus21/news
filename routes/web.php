@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\News\Admin\CategoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,12 +29,18 @@ Auth::routes([
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
-Route::middleware('roles:admin,Chief-editor,Editor')->group(function () {
-    Route::get('/admin', [HomeController::class, 'index'])->name('admin');
+$groupData = [
+    'prefix' => 'admin',
+    'middleware' => ['auth', 'roles:admin,Chief-editor,Editor']
+];
+Route::group($groupData, function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::resource('categories', CategoryController::class)
+        ->names('admin.categories')->middleware(['auth', 'roles:admin,Chief-editor']);
+
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
 Route::get('test', [TestController::class, '__invoke']);
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -29,7 +29,7 @@ class PostFactory extends Factory
 
         $storagePath = storage_path($this->storage);
         if (!File::exists($storagePath)) {
-            File::makeDirectory($storagePath);
+            File::makeDirectory($storagePath, 0755, true);
         }
 
         return [

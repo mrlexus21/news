@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
@@ -12,7 +13,8 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dd( User::factory()->create());
+        //dd( User::factory()->create());
+        dd(Category::all(['id', 'name', 'created_at', 'updated_at']));
         //dd(response(true, 403));
         //$user = User::find(2);
         //dd($user->hasAnyRole(['Chief-editor']));
