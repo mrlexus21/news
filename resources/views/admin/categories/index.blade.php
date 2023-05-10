@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title', __('admin.categories'))
-
+@section('breadcrumbs', Breadcrumbs::view('partials.blocks.admin-breadcrumbs', \Request::route()->getName()))
 @section('content')
 
     <!-- Default box -->
