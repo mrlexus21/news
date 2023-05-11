@@ -29,7 +29,7 @@ class NewsCategoryUpdateRequest extends FormRequest
         return [
             //'name' => 'string|required|min:3|unique:categories,name',
             'name' => 'string|required|min:3|unique:categories,name,' . $this->category_id,
-            'slug' => 'string|required|max:255',
+            'slug' => 'string|required|max:255|unique:categories,slug,' . $this->category_id,
             'description' => 'string'
         ];
     }

@@ -109,7 +109,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
+                    <li class="nav-item menu-open @routeactive('admin.dashboard')">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -119,7 +119,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="./index.html" class="nav-link active">
+                                <a href="{{ route('admin.categories.index') }}" class="nav-link @routeactive('admin.dashboard')">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>@lang('admin.dashboard') #1</p>
                                 </a>
@@ -127,14 +127,16 @@
                         </ul>
                     </li>
                     <li class="nav-header">@lang('admin.content')</li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.categories.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>
-                                @lang('admin.categories')
-                            </p>
-                        </a>
-                    </li>
+                    @userhasroles(['admin', 'chief-editor'])
+                        <li class="nav-item">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link @routeactive('admin.categories.index')">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    @lang('admin.categories')
+                                </p>
+                            </a>
+                        </li>
+                    @enduserhasroles
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">

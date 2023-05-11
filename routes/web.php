@@ -43,4 +43,4 @@ Route::group($groupData, function () {
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
-Route::get('test', [TestController::class, '__invoke']);
+Route::get('test', [TestController::class, '__invoke'])->name('test');

@@ -28,8 +28,8 @@ class NewsCategoryCreateRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:3|unique:categories,name',
-            'slug' => 'string|max:255|nullable',
-            'description' => 'string'
+            'slug' => 'string|max:255|nullable|unique:categories,slug',
+            'description' => 'string|nullable'
         ];
     }
 }
