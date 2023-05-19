@@ -10,7 +10,7 @@ class CategoryObserver
     /**
      * Handle the Category "created" event.
      */
-    public function saving(Category $category): void
+    public function creating(Category $category): void
     {
         $this->setSlug($category);
     }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\HtmlString;
 
 class Category extends Model
 {
@@ -18,4 +19,11 @@ class Category extends Model
         'slug',
         'description'
     ];
+
+    public function getDescription()
+    {
+        return new HtmlString($this->description);
+    }
+
+
 }

@@ -43,7 +43,7 @@ class CategoryController extends Controller
         }
 
         return back()
-            ->withErrors(['msg' => __('admin.save_error')])
+            ->with(['warning' => __('admin.save_error')])
             ->withInput();
     }
 
@@ -72,7 +72,7 @@ class CategoryController extends Controller
 
         if (empty($category)) {
             return back()
-                ->withErrors(['msg' => __('admin.record_id_not', ['id' => $id])])
+                ->with(['warning' => __('admin.record_id_not', ['id' => $id])])
                 ->withInput();
         }
 
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         }
 
         return back()
-            ->withErrors(['msg' => __('admin.save_error')])
+            ->with(['warning' => __('admin.save_error')])
             ->withInput();
     }
 
@@ -99,6 +99,6 @@ class CategoryController extends Controller
     {
         $category->delete();
         session()->flash('success', __('admin.delete_success'));
-        return redirect(route('admin.categories.index'));
+        return redirect()->route('admin.categories.index');
     }
 }

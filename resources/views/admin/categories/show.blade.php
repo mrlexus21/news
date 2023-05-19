@@ -50,7 +50,7 @@
                                 </tr>
                                 <tr>
                                     <td>@lang('admin.description')</td>
-                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->getDescription() }}</td>
                                 </tr>
                                 </tbody>
                             </table>

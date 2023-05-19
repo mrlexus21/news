@@ -19,7 +19,7 @@ mix.js('resources/admin/js/app.js', 'public/js/admin')
 mix.scripts([
     'resources/public/js/active.js',
     'resources/public/js/bootstrap.min.js',
-    'resources/public/js/jquery-2.2.4.min.js',
+    //'resources/public/js/jquery-2.2.4.min.js',
     'resources/public/js/plugins.js',
     'resources/public/js/popper.min.js',
     //'resources/public/js/map-active.js',

@@ -86,7 +86,7 @@
                     <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>--}}
                 <div class="info">
-                    <a href="#" class="d-block">{{ \Auth::user()->name }}</a>
+                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -109,8 +109,8 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open @routeactive('admin.dashboard')">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link @routeactive('admin.dashboard')">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 @lang('admin.dashboard')
@@ -129,7 +129,7 @@
                     <li class="nav-header">@lang('admin.content')</li>
                     @userhasroles(['admin', 'chief-editor'])
                         <li class="nav-item">
-                            <a href="{{ route('admin.categories.index') }}" class="nav-link @routeactive('admin.categories.index')">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link @routeactive('admin.categories.*')">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     @lang('admin.categories')
@@ -137,7 +137,14 @@
                             </a>
                         </li>
                     @enduserhasroles
-
+                    <li class="nav-item">
+                        <a href="{{ route('admin.posts.index') }}" class="nav-link @routeactive('admin.posts.*')">
+                            <i class="nav-icon fas fa-newspaper"></i>
+                            <p>
+                                @lang('admin.news')
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>

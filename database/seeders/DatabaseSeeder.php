@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
         ]);
 
-        Post::factory(100)->withCleanStorageFolder()->create();
+        Post::factory(30)->withCleanStorageFolder()->create();
     }
 }

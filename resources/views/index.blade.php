@@ -18,7 +18,7 @@
             <ul class="marquee-content-items">
                 @foreach($lastPosts->take(5) as $post)
                     <li>
-                        <a href="#"><span class="latest-news-time">{{ $post->middleShortMonthFormatDate }}</span>{{ $post->title }}</a>
+                        <a href="#"><span class="latest-news-time">{{ $post->shortTimeFormat }}</span>{{ $post->title }}</a>
                     </li>
                 @endforeach
             </ul>
@@ -93,7 +93,7 @@
                     @foreach($posts as $post)
                         <div class="gazette-single-catagory-post">
                             <h5><a href="#" class="font-pt">{{ $post->title }}</a></h5>
-                            <span>{{ $post->fullShortTimeFormatDate }}</span>
+                            <span>{{ $post->fullShortTimeFormat }}</span>
                         </div>
                     @endforeach
                 </div>

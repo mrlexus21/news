@@ -73,4 +73,10 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    /**
+     * paths default save files in local storage
+     */
+    'local_paths' => [
+        'news_images' => 'public/images'
+    ]
 ];
