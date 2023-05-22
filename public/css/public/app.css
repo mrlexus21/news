@@ -26,7 +26,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 :: 4.0 Header Area CSS
     :: 4.1.0 Top Header Area CSS
     :: 4.2.0 Middle Header Area CSS
-    :: 4.3.0 Bottom Header Area CSS 
+    :: 4.3.0 Bottom Header Area CSS
 :: 5.0 Welocome Post Area CSS
 :: 6.0 News Marquee Area CSS
 :: 7.0 Sidebar Area CSS
@@ -1061,7 +1061,7 @@ img {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 50%;
             flex: 0 0 50%;
-    max-width: 50%;
+    max-width: 100%;
 }
 
 .page-item:first-child .page-link {
@@ -1309,6 +1309,7 @@ textarea.form-control {
 .copywrite-text p > a {
     color: #fff;
 }
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

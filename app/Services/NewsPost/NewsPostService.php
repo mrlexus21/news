@@ -13,6 +13,9 @@ class NewsPostService
      */
     private $newsRepository;
 
+    /**
+     * @param NewsPostRepositoryInterface $newsRepository
+     */
     public function __construct(NewsPostRepositoryInterface $newsRepository)
     {
         $this->newsRepository = $newsRepository;

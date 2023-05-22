@@ -1,8 +1,6 @@
 import 'bootstrap';
 import 'admin-lte';
-
-import jquery from 'jquery';
-
+//require('jquery');
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -14,7 +12,10 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+import jquery from 'jquery';
 window.$ = window.jQuery = jquery;
+
+/*window.$ = window.jQuery = require('jquery');*/
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

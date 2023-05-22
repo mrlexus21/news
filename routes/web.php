@@ -45,5 +45,7 @@ Route::group($groupData, function () {
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
+Route::get('/category/{category:slug}', [IndexController::class, 'category'])->name('category');
+Route::get('/category/{category:slug}/post/{post:slug}', [IndexController::class, 'newsPost'])->name('newspost');
 
 Route::get('test', [TestController::class, '__invoke'])->name('test');

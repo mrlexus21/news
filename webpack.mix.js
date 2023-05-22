@@ -17,11 +17,11 @@ mix.js('resources/admin/js/app.js', 'public/js/admin')
 
 // optimize public template files
 mix.scripts([
-    'resources/public/js/active.js',
-    'resources/public/js/bootstrap.min.js',
-    //'resources/public/js/jquery-2.2.4.min.js',
-    'resources/public/js/plugins.js',
+    'resources/public/js/jquery-2.2.4.min.js',
     'resources/public/js/popper.min.js',
+    'resources/public/js/bootstrap.min.js',
+    'resources/public/js/plugins.js',
+    'resources/public/js/active.js',
     //'resources/public/js/map-active.js',
 ], 'public/js/public/app.js');
 

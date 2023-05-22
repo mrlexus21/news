@@ -2,16 +2,25 @@
 
 namespace App\Repositories;
 
-use App\Models\Post;
+use App\Models\Post as Model;
 use App\Repositories\Interfaces\NewsPostRepositoryInterface;
 use App\Services\Filters\NewsPostFilters;
 
 class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInterface
 {
+    private $defaultColumns = [
+        'id',
+        'title',
+        'slug',
+        'image',
+        'excerpt',
+        'published_at',
+        'category_id'
+    ];
 
     protected function getModelClass()
     {
-        return Post::class;
+        return Model::class;
     }
 
     public function getAllWithPaginate(int $perPage = 100)
@@ -51,6 +60,29 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $this
             ->startConditions()
             ->filter($filters)
+            ->paginate($perPage);
+    }
+
+    public function getLastNewsByCategoryId(int $id, $limit = 100)
+    {
+        return $this
+            ->startConditions()
+            ->select($this->defaultColumns)
+            ->orderBy('id', 'desc')
+            ->with('category')
+            ->category($id)
+            ->limit($limit)
+            ->get();
+    }
+
+    public function getLastNewsWithPaginateByCategoryId(int $id, $perPage = 100)
+    {
+        return $this
+            ->startConditions()
+            ->select($this->defaultColumns)
+            ->orderBy('id', 'desc')
+            ->with('category')
+            ->category($id)
             ->paginate($perPage);
     }
 }

@@ -98,6 +98,11 @@ class Post extends Model
         return $filters->apply($builder);
     }
 
+    public function scopeCategory($query, $cid)
+    {
+        return $query->where('category_id', $cid);
+    }
+
     public function getStatusAttribute(bool $withClassName = false): object
     {
         $result = (object)[];

@@ -25,5 +25,8 @@ class Category extends Model
         return new HtmlString($this->description);
     }
 
-
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
