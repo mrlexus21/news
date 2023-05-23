@@ -4,6 +4,7 @@ use App\DTO\NewsPost\NewsPostDto;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
+use App\Repositories\Interfaces\NewsPostRepositoryInterface;
 use App\Services\NewsPost\NewsPostService;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -21,6 +22,7 @@ class NewsPostActionsTest extends TestCase
     use WithFaker, DatabaseTransactions;
 
     private $newsPostService;
+    private $newsPostRepository;
     protected $storage = 'app/public/images';
 
     protected function setUp(): void
@@ -28,6 +30,7 @@ class NewsPostActionsTest extends TestCase
         parent::setUp();
 
         $this->newsPostService = app(NewsPostService::class);
+        $this->newsPostRepository = app(NewsPostRepositoryInterface::class);
     }
 
     /**
@@ -71,6 +74,7 @@ class NewsPostActionsTest extends TestCase
         $itemNews = $this->newsPostService->createNewsPost($stubDto);
         $imagePathOld = $itemNews->image;
 
+        $this->assertEquals($itemNews->user_id, $authUser->id);
         // check image
         $this->assertEquals($this->checkImage($imagePathOld), true);
 
@@ -81,11 +85,14 @@ class NewsPostActionsTest extends TestCase
             'image' => $newImagePath,
         ]);
 
-        $updateNewsItem = $this->newsPostService->updateNewsPostWithId($itemNews->id, $newStubDto);
+        $updateNewsResult = $this->newsPostService->updateNewsPostWithId($itemNews->id, $newStubDto);
 
+        $this->assertEquals($updateNewsResult, true);
         // check deleting old image
         $this->assertEquals($this->checkImage($imagePathOld), false);
         $this->assertEquals($this->checkImage($newImagePath), true);
+
+        $this->assertEquals($authUser->id, $this->newsPostRepository->getEdit($itemNews->id)->user_id);
     }
 
     /**
