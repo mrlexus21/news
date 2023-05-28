@@ -120,6 +120,21 @@ class Post extends Model
         return $query->where('category_id', $cid);
     }
 
+    public function scopeNowPublished($query)
+    {
+        return $query->published()->where('published_at', '<', now());
+    }
+
+    public function scopePopular($query)
+    {
+        return $query->where('popular', true);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
     public function getStatusAttribute(bool $withClassName = false): object
     {
         $result = (object)[];

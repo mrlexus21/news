@@ -16,7 +16,7 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dd(storage_path('app/public/images'));
+        dd(now());
         //$npr = new NewsPostRepository();
         //dd($npr->getAllWithPaginate(10));
         //dd( User::factory()->create());
