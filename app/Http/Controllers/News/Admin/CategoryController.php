@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->authorizeResource(Category::class, 'category');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +31,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
         return view('admin.categories.form');
     }
 
@@ -66,13 +72,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(NewsCategoryUpdateRequest $request, string $id)
+    public function update(NewsCategoryUpdateRequest $request, Category $category)
     {
-        $category = Category::find($id);
+        $category = Category::find($category->id);
 
         if (empty($category)) {
             return back()
-                ->with(['warning' => __('admin.record_id_not', ['id' => $id])])
+                ->with(['warning' => __('admin.record_id_not', ['id' => $category->id])])
                 ->withInput();
         }
 

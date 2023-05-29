@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 
 class NewsController extends BaseController
 {
-    private $newsRepository;
-    private $newsPostService;
+    private NewsPostRepositoryInterface $newsRepository;
+    private NewsPostService $newsPostService;
     /**
      * Display a listing of the resource.
      */
@@ -22,6 +22,8 @@ class NewsController extends BaseController
     public function __construct(NewsPostRepositoryInterface $newsRepository, NewsPostService $newsPostService)
     {
         parent::__construct();
+
+        $this->authorizeResource(Post::class, 'post');
 
         $this->newsRepository = $newsRepository;
         $this->newsPostService = $newsPostService;
@@ -81,11 +83,11 @@ class NewsController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, string $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         try {
             $dtoNewsPost = CreateNewsPostDtoFactory::fromRequest($request);
-            $result = $this->newsPostService->updateNewsPostWithId($id, $dtoNewsPost);
+            $result = $this->newsPostService->updateNewsPostWithId($post->id, $dtoNewsPost);
 
         } catch(\Throwable $e) {
             return back()
@@ -95,7 +97,7 @@ class NewsController extends BaseController
 
         if ($result) {
             return redirect()
-                ->route('admin.posts.edit', $id)
+                ->route('admin.posts.edit', $post->id)
                 ->with(['success' => __('admin.save_success')]);
         }
     }
@@ -109,15 +111,5 @@ class NewsController extends BaseController
         session()->flash('success', __('admin.delete_success'));
 
         return redirect()->route('admin.posts.index');
-    }
-
-    public function publish(Post $post)
-    {
-        // todo
-    }
-
-    public function reject(Post $post)
-    {
-        // todo
     }
 }

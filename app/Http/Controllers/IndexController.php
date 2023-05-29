@@ -12,15 +12,6 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    private NewsPostRepositoryInterface $newsRepository;
-
-    public function __construct(NewsPostRepositoryInterface $newsRepository,)
-    {
-        $this->newsRepository = $newsRepository;
-    }
-    /**
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
     public function index()
     {
         return view('index');

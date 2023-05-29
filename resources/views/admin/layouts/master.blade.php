@@ -127,7 +127,7 @@
                         </ul>
                     </li>
                     <li class="nav-header">@lang('admin.content')</li>
-                    @userhasroles(['admin', 'chief-editor'])
+                    @can('viewAny', App\Models\Category::class)
                         <li class="nav-item">
                             <a href="{{ route('admin.categories.index') }}" class="nav-link @routeactive('admin.categories.*')">
                                 <i class="nav-icon fas fa-list"></i>
@@ -136,7 +136,7 @@
                                 </p>
                             </a>
                         </li>
-                    @enduserhasroles
+                    @endcan
                     <li class="nav-item">
                         <a href="{{ route('admin.posts.index') }}" class="nav-link @routeactive('admin.posts.*')">
                             <i class="nav-icon fas fa-newspaper"></i>

@@ -118,16 +118,20 @@
                     </div>
 
                     <div class="text-center mt-5 mb-3">
-                        <a class="btn btn-info btn-sm" href="{{ route('admin.posts.edit', $post) }}">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            @lang('admin.edit')
-                        </a>
-                        <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input class="btn btn-danger btn-sm" type="submit" value="@lang('admin.delete')">
-                        </form>
+                        @can('update', $post)
+                            <a class="btn btn-info btn-sm" href="{{ route('admin.posts.edit', $post) }}">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                @lang('admin.edit')
+                            </a>
+                        @endcan
+                        @can('delete', $post)
+                            <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input class="btn btn-danger btn-sm" type="submit" value="@lang('admin.delete')">
+                            </form>
+                        @endcan
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Post;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
