@@ -8,7 +8,7 @@ use App\Http\Requests\NewsCategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     public function __construct()
     {
