@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             UserTableSeeder::class,
             CategoryTableSeeder::class,
+            CurrencyTableSeeder::class,
         ]);
 
         Post::factory(50)->withCleanStorageFolder()->create();
