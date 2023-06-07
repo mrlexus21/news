@@ -18,12 +18,14 @@
         "laravel/ui": "^4.2"
     },
     "require-dev": {
+        "brianium/paratest": "^7.1",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10",
+        "roave/security-advisories": "dev-master",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
@@ -36,7 +38,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/functions.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

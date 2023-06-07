@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\NewsPostRepository;
 use App\Services\NewsPost\NewsPostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 class TestController extends Controller
@@ -16,7 +17,8 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dd(now());
+        dump(Carbon::createFromTimestamp(1685577599));
+        dd(Carbon::createFromTimestamp(1685577599)->today());
         //$npr = new NewsPostRepository();
         //dd($npr->getAllWithPaginate(10));
         //dd( User::factory()->create());
