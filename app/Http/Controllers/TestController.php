@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use App\Repositories\NewsPostRepository;
+use App\Services\Currency\CurrencyService;
 use App\Services\NewsPost\NewsPostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -17,8 +18,10 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dump(Carbon::createFromTimestamp(1685577599));
-        dd(Carbon::createFromTimestamp(1685577599)->today());
+        $currencyService = app()->make(CurrencyService::class) ;
+        dd($currencyService->getActualInfo());
+        //dump(Carbon::createFromTimestamp(1685577599));
+        //dd(Carbon::createFromTimestamp(1685577599)->today());
         //$npr = new NewsPostRepository();
         //dd($npr->getAllWithPaginate(10));
         //dd( User::factory()->create());
