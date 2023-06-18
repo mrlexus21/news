@@ -3,13 +3,15 @@
 namespace Tests\Feature\Services\Currency\DataManagers;
 
 use App\Services\Currency\Clients\FreecurrencyapiClient;
+use App\Services\Currency\DataManagers\FreecurrencyapiDataManager;
 use App\Services\Currency\Interfaces\CurrencyClientInterface;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
-use App\Services\Currency\DataManagers\FreecurrencyapiDataManager;
+use App\Services\Currency\Clients\ExchangerateClient;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Services\Currency\DataManagers\ExchangerateDataManager;
 
-class FreecurrencyapiDataManagerTest extends TestCase
+class ExchangerateDataManagerTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -18,12 +20,12 @@ class FreecurrencyapiDataManagerTest extends TestCase
         parent::setUp();
 
         app()->bind(CurrencyClientInterface::class, function () {
-            return new FreecurrencyapiClient();
+            return new ExchangerateClient();
         });
 
-        $this->responseApiJson = file_get_contents(__DIR__ . '/serviceResponse.json');
+        $this->responseApiJson = file_get_contents(__DIR__ . '/exchangerateServiceResponse.json');
 
-        $this->testClass =  new class extends FreecurrencyapiDataManager {
+        $this->testClass =  new class extends ExchangerateDataManager {
             public $json;
             protected function getCurrencyFromBase(): array
             {
@@ -41,10 +43,8 @@ class FreecurrencyapiDataManagerTest extends TestCase
 
         foreach ($data as $DtoItem) {
             $currencyTitle = $DtoItem->title;
-            $this->assertEquals($arJsonData->data->$currencyTitle, $DtoItem->rate);
-            $this->assertEquals(Carbon::createFromTimestamp($arJsonData->query->timestamp)->today(), $DtoItem->date);
-            $this->assertEquals($DtoItem->crypt, (config('currency.crypt_name') === $DtoItem->title));
-            $this->assertEquals($DtoItem->base_currency, (config('currency.base_currency') === $DtoItem->title));
+            $this->assertEquals($arJsonData->conversion_rates->$currencyTitle, $DtoItem->rate);
+            $this->assertEquals(Carbon::createFromTimestamp($arJsonData->time_last_update_unix)->today(), $DtoItem->date);
         }
     }
 }

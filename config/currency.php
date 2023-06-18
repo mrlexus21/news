@@ -11,5 +11,8 @@ return [
 
     'freecurrencyapi' => [
         'api_key' => env('FREECURRENCY_API_KEY')
+    ],
+    'exchangerate' => [
+        'api_key' => env('EXCHANGERATE_API_KEY')
     ]
 ];
