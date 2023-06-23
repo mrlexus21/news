@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Repositories\CategoryRepository;
+use App\Repositories\CategoryCachedRepository;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Repositories\Interfaces\NewsPostRepositoryInterface;
-use App\Repositories\NewsPostRepository;
+use App\Repositories\Interfaces\PostRepositoryInterface;
+use App\Repositories\PostCachedRepository;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -19,13 +19,13 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            NewsPostRepositoryInterface::class,
-            NewsPostRepository::class
+            PostRepositoryInterface::class,
+            PostCachedRepository::class
         );
 
         $this->app->bind(
             CategoryRepositoryInterface::class,
-            CategoryRepository::class
+            CategoryCachedRepository::class
         );
     }
 

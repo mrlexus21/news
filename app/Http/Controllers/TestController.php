@@ -6,11 +6,12 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\NewsPostRepository;
+use App\Repositories\PostRepository;
 use App\Services\Currency\CurrencyService;
 use App\Services\NewsPost\NewsPostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 class TestController extends Controller
@@ -18,6 +19,11 @@ class TestController extends Controller
     //
     public function __invoke()
     {
+        //Cache::tags('tag123')->put('tag345', 1235);
+        //$tag = Cache::tags('tag123')->remember('tag345', 3600, function(){
+        //    return 678;
+        //});
+        //dd($tag);
         $currencyService = app()->make(CurrencyService::class) ;
         dd($currencyService->getActualInfo());
         //dump(Carbon::createFromTimestamp(1685577599));

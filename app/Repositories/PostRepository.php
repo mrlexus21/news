@@ -3,11 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Post as Model;
-use App\Repositories\Interfaces\NewsPostRepositoryInterface;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Services\Filters\NewsPostFilters;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 
-class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInterface
+class PostRepository extends CoreRepository implements PostRepositoryInterface
 {
     private $defaultColumns = [
         'id',
@@ -19,12 +22,12 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         'category_id'
     ];
 
-    protected function getModelClass()
+    protected function getModelClass(): string
     {
         return Model::class;
     }
 
-    public function getAllWithPaginate(int $perPage = 100)
+    public function getAllWithPaginate(int $perPage = 100): Collection|LengthAwarePaginator
     {
         $columns = [
             'id',
@@ -55,7 +58,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $this->startConditions()->find($id);
     }
 
-    public function getPostWithPaginateCategory(int $perPage = 100, int $category = null)
+    public function getPostWithPaginateCategory(int $perPage = 100, int $category = null): Collection|LengthAwarePaginator
     {
         $query = $this
             ->startConditions()
@@ -71,7 +74,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $query->paginate($perPage);
     }
 
-    public function getNewsPostsWithFilterPaginate($request, $perPage = null)
+    public function getNewsPostsWithFilterPaginate($request, $perPage = null): Collection|LengthAwarePaginator
     {
         $filters = (new NewsPostFilters($request));
         return $this
@@ -103,7 +106,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
             ->paginate($perPage);
     }*/
 
-    public function getLastMainSliderPosts(int $category = null, int $limit = 10)
+    public function getLastMainSliderPosts(int $category = null, int $limit = 10): Collection
     {
         $query = $this
             ->startConditions()
@@ -120,7 +123,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $query->get();
     }
 
-    public function getLastPublishedNews(int $category = null, int $limit = 20)
+    public function getLastPublishedNews(int $category = null, int $limit = 20): Collection
     {
         $query = $this
             ->startConditions()
@@ -137,7 +140,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $query->get();
     }
 
-    public function getLastPopularPublishedNews(int $category = null, int $limit = 20)
+    public function getLastPopularPublishedNews(int $category = null, int $limit = 20): Collection
     {
         $query = $this
             ->startConditions()
@@ -155,7 +158,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $query->get();
     }
 
-    public function getPublishedNewsOverPeriod(Carbon $period, int $limit = 20, int $category = null, $getWithBuilder = false)
+    public function getPublishedNewsOverPeriod(Carbon $period, int $limit = 20, int $category = null, $getWithBuilder = false): Collection|Builder
     {
         $query = $this
             ->startConditions()
@@ -177,7 +180,7 @@ class NewsPostRepository extends CoreRepository implements NewsPostRepositoryInt
         return $query->get();
     }
 
-    public function getPopularRandomNewsOverPeriod(Carbon $period, int $limit = 20, int $category = null)
+    public function getPopularRandomNewsOverPeriod(Carbon $period, int $limit = 20, int $category = null): Collection
     {
         $query = $this
             ->startConditions()

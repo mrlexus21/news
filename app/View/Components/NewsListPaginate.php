@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Repositories\Interfaces\NewsPostRepositoryInterface;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -17,12 +17,12 @@ class NewsListPaginate extends Component
      *
      * @return void
      */
-    public function __construct(NewsPostRepositoryInterface $newsPostRepository, int $perPage, $category = null)
+    public function __construct(PostRepositoryInterface $postRepository, int $perPage, $category = null)
     {
         $this->perPage = $perPage;
         $this->category = $category;
 
-        $this->posts = $newsPostRepository->getPostWithPaginateCategory($this->perPage, $this->category);
+        $this->posts = $postRepository->getPostWithPaginateCategory($this->perPage, $this->category);
     }
 
     /**
