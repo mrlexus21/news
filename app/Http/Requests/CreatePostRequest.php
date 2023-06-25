@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreatePostRequest extends FormRequest
 {
@@ -11,6 +12,10 @@ class CreatePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if (Auth::user()?->hasAnyRole(['admin', 'Chief-editor', 'Editor'])) {
+            return true;
+        }
+
         return true;
     }
 

@@ -41,7 +41,7 @@ Route::group($groupData, function () {
         ->names('admin.categories')->middleware(['auth', 'roles:admin,Chief-editor,Editor']);
 
     Route::resource('posts', NewsController::class)
-        ->names('admin.posts')->middleware(['auth', 'roles:admin,Chief-editor,editor']);
+        ->names('admin.posts')->middleware(['auth', 'roles:admin,Chief-editor,Editor']);
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');

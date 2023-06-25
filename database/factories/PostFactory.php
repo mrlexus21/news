@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -26,7 +26,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = Str::limit($this->faker->realText(), 50);
-        $isPublished = (random_int(1,10) > 1);
+        $isPublished = (random_int(1, 10) > 1);
 
         $storagePath = storage_path($this->storage);
         if (!File::exists($storagePath)) {
@@ -41,7 +41,7 @@ class PostFactory extends Factory
                 return Category::inRandomOrder()->first()->id;
             },
             'user_id' => function () {
-                User::inRandomOrder()->first()->id;
+                return User::where('role_id', Role::where('name', 'Editor')->first()->id)->inRandomOrder()->first()->id;
             },
             'excerpt' => $this->faker->realText(120),
             'content' => $this->faker->realText(2000, 5),
