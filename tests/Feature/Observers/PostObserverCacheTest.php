@@ -13,6 +13,7 @@ class PostObserverCacheTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
+    private string $defaultTag = PostCachedRepository::class . 'getAllWithPaginate';
     public function testCreateCacheReset()
     {
         $valueDB = $this->getExistRecordAndPutCache();
@@ -60,7 +61,7 @@ class PostObserverCacheTest extends TestCase
 
     private function getExistRecordAndPutCache()
     {
-        return Cache::tags(PostCachedRepository::class . 'getAllWithPaginate')
+        return Cache::tags($this->defaultTag)
             ->remember('test',
             3600,
             function () {
@@ -70,6 +71,6 @@ class PostObserverCacheTest extends TestCase
 
     private function getValueWithTag()
     {
-        return Cache::tags(PostCachedRepository::class . 'getAllWithPaginate')->get('test');
+        return Cache::tags($this->defaultTag)->get('test');
     }
 }

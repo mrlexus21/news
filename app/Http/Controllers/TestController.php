@@ -22,6 +22,7 @@ class TestController extends Controller
     //
     public function __invoke()
     {
+
         //$user = User::find(1);
         //Auth::login($user, true);
         //Auth::logout();
