@@ -1,4 +1,8 @@
 <?php
+
+use Illuminate\Support\Str;
+use Jenssegers\Date\Date;
+
 if(!function_exists('implode_r'))
 {
 	function implode_r_key($glue, array $arr)
@@ -18,4 +22,12 @@ if(!function_exists('implode_r'))
 
 		return $ret;
 	}
+}
+
+if(!function_exists('getMiddleFormatDateAttribute'))
+{
+    function getMiddleFormatDateAttribute($date)
+    {
+        return Str::ucfirst(Date::parse($date)->format('F d, Y'));
+    }
 }

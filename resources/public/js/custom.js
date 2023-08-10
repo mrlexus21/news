@@ -4,16 +4,23 @@ $(document).ready(function () {
 });
 
 var newsApp = {
-    subscribeBtnUd : document.getElementById('subscribe_btn'),
+    subscribeBtnUd: document.getElementById('subscribe_btn'),
+    unsubscribeBtnUd: document.querySelectorAll('#unsubscribe_btn'),
 
     init: function () {
         // init scripts
     },
 
     listenAction: function () {
-        let subscribe = this.subscribeBtnUd;
-        if (subscribe) {
-            subscribe.addEventListener("click", this.subscribeAction);
+
+        if (this.subscribeBtnUd) {
+            this.subscribeBtnUd.addEventListener("click", this.subscribeAction);
+        }
+
+        if (this.unsubscribeBtnUd !== undefined) {
+            this.unsubscribeBtnUd.forEach((elem) => {
+                elem.addEventListener("click", this.unsubscribeAction);
+            })
         }
     },
 
@@ -21,28 +28,68 @@ var newsApp = {
         let postId = this.dataset.postId;
 
         var arParams = {
-            'action' : '/subscribe',
-            'data' : {
+            'action': '/subscribe',
+            'data': {
                 postId: postId
             }
         };
 
+        newsApp.subscribeBtnUd.disabled = true;
+
         newsApp.request(arParams, function (response, fail = false) {
             if (!fail) {
                 newsApp.subscribeBtnUd.textContent = response.message;
-                newsApp.subscribeBtnUd.disabled = true;
             } else {
-                if ((errorMsg = response.responseJSON.errors.postId
-                    || response.responseJSON.errors[0]) !== undefined) {
-                    alert(errorMsg)
-                }
+                alert(newsApp.getErrorMessage(response));
+                newsApp.subscribeBtnUd.disabled = false;
             }
         });
     },
 
-    request: function(params, callback) {
+    unsubscribeAction: function () {
+        let ev = this;
+        let authorId = ev.dataset.authorId;
 
-        if(typeof callback != 'function') {
+        var arParams = {
+            'action': '/unsubscribe',
+            'data': {
+                authorId: authorId
+            }
+        };
+
+        ev.disabled = true;
+
+        newsApp.request(arParams, function (response, fail = false) {
+            if (!fail) {
+                ev.textContent = response.message;
+            } else {
+                alert(newsApp.getErrorMessage(response));
+                ev.disabled = false;
+            }
+        });
+    },
+
+    getErrorMessage: function (response) {
+
+        if (Array.isArray(response.responseJSON.errors)) {
+            var firstKey = Object.keys(response.responseJSON.errors)[0];
+            return response.responseJSON.errors[firstKey];
+        }
+
+        if (response.responseJSON.errors !== undefined) {
+            return response.responseJSON.errors;
+        }
+
+        if (response.responseJSON.message !== undefined) {
+            return response.responseJSON.message;
+        }
+
+        return 'Server error, please try later.';
+    },
+
+    request: function (params, callback) {
+
+        if (typeof callback != 'function') {
             return;
         }
 
@@ -60,16 +107,16 @@ var newsApp = {
             url: params.action,
             dataType: 'json',
         });
-        request.done(function(response) {
+        request.done(function (response) {
             try {
-                callback.call(self, response);
+                callback(response);
             } catch (e) {
                 console.log('callback failed ' + e);
             }
         });
 
-        request.fail(function(response) {
-            callback.call(self, response, true);
+        request.fail(function (response) {
+            callback(response, true);
         });
     },
 }

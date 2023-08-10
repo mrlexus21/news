@@ -6,6 +6,7 @@ use App\Http\Middleware\Authenticate;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Role;
+use App\Models\Subscriber;
 use App\Models\User;
 use App\Repositories\PostRepository;
 use App\Services\Currency\CurrencyService;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Faker\Generator as Faker;
 
@@ -22,7 +24,11 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-
+        //$role = Role::where('name', 'User')->first();
+        $role = DB::table('roles')->select('id')->where('name', 'Admin')->first();
+        dump($role);
+        //$sub = Subscriber::withSubscriber(1)->withAuthor(2);
+        //dd($sub);
         //$user = User::find(1);
         //Auth::login($user, true);
         //Auth::logout();
