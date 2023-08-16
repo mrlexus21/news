@@ -17,7 +17,7 @@ class SubscribeController extends Controller
     public function __construct(SubscribeService $subscribeService)
     {
         $this->subscribeService = $subscribeService;
-        $this->middleware('throttle:100,1');
+        //$this->middleware('throttle:100,1');
     }
 
     public function subscribe(SubscribeRequest $request)

@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,7 +35,13 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
-        return route('admin.dashboard');
+        if (Auth::user()?->hasAnyRole(['Admin', 'Chief-editor', 'Editor'])) {
+            $routeName = 'admin.dashboard';
+        } else {
+            $routeName = 'personal';
+        }
+
+        return $routeName;
     }
 
     /**

@@ -32,6 +32,7 @@ class RegisterTest extends TestCase
             ]);
 
         $response->assertStatus(302);
+        $response->assertRedirectToRoute('personal');
 
         $user = User::where('email', $email)->first();
 

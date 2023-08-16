@@ -8,7 +8,7 @@ class PersonalController extends Controller
 {
     public function index()
     {
-        return view('personal.index');
+        return view('personal');
     }
 
     public function subscribeList()
