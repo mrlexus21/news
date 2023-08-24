@@ -36,7 +36,7 @@
                     <!-- Subscribe Widget -->
                     <div class="subscribe-widget">
                         <div class="widget-title">
-                            <h5>@lang('main.subscribe')</h5>
+                            <h5>@lang('main.subscribe.blade')</h5>
                         </div>
                         <div class="subscribe-form">
                             <form action="#">

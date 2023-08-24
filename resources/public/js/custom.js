@@ -28,7 +28,7 @@ var newsApp = {
         let postId = this.dataset.postId;
 
         var arParams = {
-            'action': '/subscribe',
+            'action': '/subscribe.blade',
             'data': {
                 postId: postId
             }

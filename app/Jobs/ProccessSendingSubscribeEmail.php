@@ -2,42 +2,34 @@
 
 namespace App\Jobs;
 
-use App\Services\Currency\SyncManager;
-use Carbon\Carbon;
+use App\Mail\SubscribePostMailer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
-class CurrencySync implements ShouldQueue, ShouldBeUnique
+class ProccessSendingSubscribeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $uniqueFor = 3600;
-
-    /**
-     * @return string
-     */
-    public function uniqueId()
-    {
-        return 'Sync by ' . Carbon::now()->toDateString();
-    }
+    private object $data;
 
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(object $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
      * Execute the job.
      */
-    public function handle(SyncManager $manager): void
+    public function handle(): void
     {
-        $manager->handle(null, true);
+        Mail::to($this->data->user_email)->send(new SubscribePostMailer($this->data));
     }
 }

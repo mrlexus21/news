@@ -2,10 +2,13 @@
 
 namespace App\Observers;
 
+use App\Events\PostPublicatedEvent;
 use App\Models\Post;
 use App\Repositories\PostCachedRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -15,11 +18,19 @@ class PostObserver
     {
         $this->setSlug($post);
         $this->setAuthor($post);
+
+        if ($post->is_published === true) {
+            $this->setPublishedNow($post);
+        }
     }
 
     public function created(Post $post)
     {
         $this->forgetOldDataPostRepository($post);
+
+        if (($post->is_published === true) && ($post->published_at !== null)) {
+            Event::dispatch(new PostPublicatedEvent($post));
+        }
     }
 
     private function setSlug(Post $post): void
@@ -36,6 +47,16 @@ class PostObserver
         }
     }
 
+    public function updating(Post $post)
+    {
+        if ($post->isDirty('is_published')
+            && ($post->is_published === true)
+            && ($post->getOriginal('is_published') !== true)
+            && ($post->published_at == null)) {
+            $this->setPublishedNow($post);
+        }
+    }
+
     public function updated(Post $post): void
     {
         $oldImageSource = $post->getOriginal('image');
@@ -44,19 +65,26 @@ class PostObserver
             $this->deleteFileFromSource($oldImageSource);
         }
 
+        if ($post->isDirty('is_published')
+            && ($post->is_published === true)
+            && ($post->getOriginal('is_published') !== true)
+            && ($post->published_at !== null)) {
+
+            Event::dispatch(new PostPublicatedEvent($post));
+        }
+
         $this->forgetOldDataPostRepository($post);
     }
 
     /**
      * Handle the Product "force deleted" event.
      *
-     * @param  \App\Models\Post $post
+     * @param \App\Models\Post $post
      * @return void
      */
     public function forceDeleted(Post $post): void
     {
         $this->deleteImageFromEntity($post);
-
         $this->forgetOldDataPostRepository($post);
     }
 
@@ -79,7 +107,7 @@ class PostObserver
     private function forgetOldDataPostRepository(Post $post): void
     {
         if ($post->isPublished()) {
-            $repositoryMethods = array_map(function($value) {
+            $repositoryMethods = array_map(function ($value) {
                 return PostCachedRepository::class . $value;
             },
                 get_class_methods(PostCachedRepository::class));
@@ -101,5 +129,10 @@ class PostObserver
         if (Storage::exists($source)) {
             Storage::delete($source);
         }
+    }
+
+    private function setPublishedNow(Post $post)
+    {
+        $post->published_at = Carbon::now()->toDateTimeString();
     }
 }

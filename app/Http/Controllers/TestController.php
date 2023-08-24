@@ -24,9 +24,14 @@ class TestController extends Controller
     //
     public function __invoke()
     {
+        //$post = Post::factory(1, ['user_id' => 6])->create();
+        $post = Post::find(492);
+        $post->update(['is_published' => true]);
+        dd($post);
+
         //$role = Role::where('name', 'User')->first();
-        $role = DB::table('roles')->select('id')->where('name', 'Admin')->first();
-        dump($role);
+        //$role = DB::table('roles')->select('id')->where('name', 'Admin')->first();
+        //dump($role);
         //$sub = Subscriber::withSubscriber(1)->withAuthor(2);
         //dd($sub);
         //$user = User::find(1);

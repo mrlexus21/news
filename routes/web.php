@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\News\Admin\CategoryController;
 use App\Http\Controllers\News\Admin\NewsController;
@@ -49,7 +50,7 @@ Route::group($groupData, function () {
 });
 
 Route::middleware(['auth', 'throttle:60,1'])->group(function () {
-    Route::post('/subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
+    Route::post('/subscribe.blade', [SubscribeController::class, 'subscribe'])->name('subscribe.blade');
     Route::post('/unsubscribe', [SubscribeController::class, 'unsubscribe'])->name('unsubscribe');
 
     Route::get('/personal', [PersonalController::class, 'index'])->name('personal');
