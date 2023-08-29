@@ -53,7 +53,7 @@ class CurrencySyncServiceTest extends TestCase
         $this->assertEquals($expectResult, $result);
     }
 
-    public function dataTrendArray()
+    public static function dataTrendArray()
     {
         return [
             [

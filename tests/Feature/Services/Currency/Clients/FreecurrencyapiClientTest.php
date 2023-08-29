@@ -26,7 +26,7 @@ class FreecurrencyapiClientTest extends TestCase
             . config('currency.freecurrencyapi.api_key'));
     }
 
-    public function dataQuery()
+    public static function dataQuery()
     {
         return [
             [

@@ -27,7 +27,7 @@ class ExchangerateClientTest extends TestCase
             . config('currency.exchangerate.api_key'));
     }
 
-    public function dataQuery()
+    public static function dataQuery()
     {
         return [
             [

@@ -10,7 +10,7 @@ class PostTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function getTestData()
+    public static function getTestData()
     {
         return [
             [0, false],

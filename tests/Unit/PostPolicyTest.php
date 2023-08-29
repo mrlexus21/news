@@ -15,7 +15,7 @@ class PostPolicyTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
-    public function dataProviderCreateData()
+    public static function dataProviderCreateData()
     {
         return [
             ['Admin', true],
@@ -38,7 +38,7 @@ class PostPolicyTest extends TestCase
         $this->assertEquals($expectResult, Auth::user()->can('create', Post::class));
     }
 
-    public function dataProviderViewData()
+    public static function dataProviderViewData()
     {
         return [
             [
@@ -90,7 +90,7 @@ class PostPolicyTest extends TestCase
         }
     }
 
-    public function dataProviderUpdateData()
+    public static function dataProviderUpdateData()
     {
         return [
             [
@@ -142,7 +142,7 @@ class PostPolicyTest extends TestCase
         }
     }
 
-    public function dataProviderDeleteData()
+    public static function dataProviderDeleteData()
     {
         return [
             [

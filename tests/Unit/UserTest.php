@@ -13,7 +13,7 @@ class UserTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
-    public function dataProviderRoles()
+    public static function dataProviderRoles()
     {
         return [
             ['Admin', 'Admin', true],

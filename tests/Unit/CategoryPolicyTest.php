@@ -14,7 +14,7 @@ class CategoryPolicyTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
-    public function dataProviderPolicyData()
+    public static function dataProviderPolicyData()
     {
         return [
             [

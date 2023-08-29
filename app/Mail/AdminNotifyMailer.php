@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SubscribePostMailer extends Mailable
+class AdminNotifyMailer extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -39,7 +39,7 @@ class SubscribePostMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.subscribe',
+            view: 'email.admin',
             with: ['data' => $this->data]
         );
     }

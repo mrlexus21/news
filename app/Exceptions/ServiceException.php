@@ -14,6 +14,6 @@ class ServiceException extends Exception
      */
     public function report(Exception $exception)
     {
-        Log::error('New error in service check this - ' . $exception);
+        Log::channel('database')->warning($exception);
     }
 }

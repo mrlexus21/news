@@ -12,7 +12,7 @@ class CheckRolesTest extends TestCase
 {
     use DatabaseTransactions, WithFaker;
 
-    public function dataProviderRoles()
+    public static function dataProviderRoles()
     {
         return [
             ['Admin', 200],
