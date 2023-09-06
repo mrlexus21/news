@@ -10,9 +10,15 @@ class Role extends Model
     use HasFactory;
     protected $table = 'roles';
     protected $guarded = false;
+    public const ADMIN = 'Admin';
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function scopeAdmin($query)
+    {
+        return $query->where('name', self::ADMIN);
     }
 }

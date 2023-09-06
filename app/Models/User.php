@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\Filters\QueryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'email',
         'role_id',
         'password',
+        'image',
     ];
 
     /**
@@ -51,16 +54,19 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
+    {
+        return $filters->apply($builder);
+    }
+
     public function scopeWithAuthorRoles($query)
     {
-        $roleIds = Role::select('id')
-            ->whereIn('name', ['Chief-editor', 'Editor'])
-            ->get()
-            ->map(function($role) {
-                return $role->id;
-            })->toArray();
+        $roleAdminId = Role::select('id')
+            ->admin()
+            ->first()
+            ->id;
 
-        return $query->whereIn('role_id', $roleIds);
+        return $query->where('role_id', $roleAdminId);
     }
 
     public function scopeWithAdminRole($query)

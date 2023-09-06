@@ -15,7 +15,7 @@
                         <!-- select -->
                         <div class="form-group">
                             <label for="author">@lang('admin.author')</label>
-                            <select class="form-control" name="author" id="author">
+                            <select class="form-control custom-select" name="author" id="author">
                                 <option value="">@lang('admin.all')</option>
                                 @foreach($authors as $author)
                                     <option value="{{$author->id}}" @if(request()->query('author') == $author->id) selected @endif>{{$author->name}}</option>
@@ -44,45 +44,45 @@
         <div class="card-body p-0">
         <table class="table table-striped projects">
             <thead>
-            <tr>
-                <th style="width: 1%">
-                    ID
-                </th>
-                <th style="width: 20%">
-                    @lang('admin.user_name')
-                </th>
-                <th style="width: 20%">
-                    E-mail
-                </th>
-                <th style="width: 20%">
-                    @lang('admin.author')
-                </th>
-                <th style="width: 10%">
-                    @lang('admin.create_date')
-                </th>
-            </tr>
+                <tr>
+                    <th style="width: 1%">
+                        ID
+                    </th>
+                    <th style="width: 20%">
+                        @lang('admin.user_name')
+                    </th>
+                    <th style="width: 20%">
+                        E-mail
+                    </th>
+                    <th style="width: 20%">
+                        @lang('admin.author')
+                    </th>
+                    <th style="width: 10%">
+                        @lang('admin.create_date')
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            @php /** @var \App\Models\Subscriber $subscriber */  @endphp
-            @foreach($subscribers as $subscriber)
-                <tr>
-                    <td>
-                        {{ $subscriber->id }}
-                    </td>
-                    <td>
-                        {{ $subscriber->user->name }}
-                    </td>
-                    <td>
-                        {{ $subscriber->user->email }}
-                    </td>
-                    <td>
-                        {{ $subscriber->author->name }}
-                    </td>
-                    <td>
-                        {{ $subscriber->created_at }}
-                    </td>
-                </tr>
-            @endforeach
+                @php /** @var \App\Models\Subscriber $subscriber */  @endphp
+                @foreach($subscribers as $subscriber)
+                    <tr>
+                        <td>
+                            {{ $subscriber->id }}
+                        </td>
+                        <td>
+                            {{ $subscriber->user->name }}
+                        </td>
+                        <td>
+                            {{ $subscriber->user->email }}
+                        </td>
+                        <td>
+                            {{ $subscriber->author->name }}
+                        </td>
+                        <td>
+                            {{ $subscriber->created_at }}
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
         <div class="mt-2">

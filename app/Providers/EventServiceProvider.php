@@ -6,12 +6,13 @@ use App\Events\PostPublicatedEvent;
 use App\Listeners\SubscribeMailListener;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use App\Observers\CategoryObserver;
 use App\Observers\PostObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
     {
         Category::observe(CategoryObserver::class);
         Post::observe(PostObserver::class);
+        User::observe(UserObserver::class);
     }
 
     /**

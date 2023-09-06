@@ -9,6 +9,7 @@ use App\Http\Controllers\News\Admin\NewsController;
 use App\Http\Controllers\Personal\PersonalController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,9 @@ Route::group($groupData, function () {
 
     Route::resource('posts', NewsController::class)
         ->names('admin.posts')->middleware(['auth', 'roles:admin,Chief-editor,Editor']);
+
+    Route::resource('users', UserController::class)
+        ->names('admin.users')->middleware(['auth', 'roles:admin']);
 
     Route::get('/subscribes', [AdminController::class, 'subscribes'])->name('admin.subscribes.index');
 
