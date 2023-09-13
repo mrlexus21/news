@@ -80,7 +80,7 @@
 
                 <div class="form-group">
                     <label>@lang('admin.image')</label><br>
-                    <img id='img-upload' src='{{ isset($user->image) ? Storage::url('userimages/' . $user->image) : '' }}'/>
+                    <img id="img-upload" height="250px" src="{{ isset($user->image) ? Storage::url('userimages/' . $user->image) : '' }}"/>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file btn-border">

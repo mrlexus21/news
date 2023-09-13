@@ -147,7 +147,7 @@ class NewsPostActionsTest extends TestCase
 
     protected function getImagePath()
     {
-        return 'images/' . $this->faker->image(storage_path($this->storage), 640, 480, 'abstract', false, true);
+        return $this->faker->image(storage_path($this->storage), 640, 480, 'abstract', false, true);
     }
 
     protected function getMockDto(array $customData = []): NewsPostDto
@@ -170,7 +170,7 @@ class NewsPostActionsTest extends TestCase
 
     protected function checkImage(string $path): bool
     {
-        return File::exists(Storage::path($path));
+        return File::exists(Storage::path(config('filesystems.local_paths.news_images') . $path));
         //return Storage::disk('public')->exists($path);
     }
 

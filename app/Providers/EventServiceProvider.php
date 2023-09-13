@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\PostPublicatedEvent;
 use App\Listeners\SubscribeMailListener;
+use App\Models\Ad;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Observers\AdObserver;
 use App\Observers\CategoryObserver;
 use App\Observers\PostObserver;
 use App\Observers\UserObserver;
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         Category::observe(CategoryObserver::class);
         Post::observe(PostObserver::class);
         User::observe(UserObserver::class);
+        Ad::observe(AdObserver::class);
     }
 
     /**

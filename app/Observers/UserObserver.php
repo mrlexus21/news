@@ -59,8 +59,9 @@ class UserObserver
      */
     private function deleteFileFromSource(string $source):void
     {
-        if(Storage::exists($source)){
-            Storage::delete($source);
+        $filePath = config('filesystems.local_paths.user_images') . $source;
+        if(Storage::exists($filePath)){
+            Storage::delete($filePath);
         }
     }
 }

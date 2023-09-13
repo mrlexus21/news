@@ -21,6 +21,7 @@ class UserController extends Controller
         $filters = (new UserFilters($request));
         $users = User::select('id', 'name', 'email', 'role_id', 'created_at', 'updated_at')
             ->filter($filters)
+            ->with('role')
             ->orderBy('id', 'asc')
             ->paginate(50);
 
@@ -47,7 +48,7 @@ class UserController extends Controller
             $requestArray = $request->validated();
             if ($request->has('image')) {
                 $imagePath = $request->file('image')?->store(config('filesystems.local_paths.user_images'));
-                $requestArray['image'] = $imagePath;
+                $requestArray['image'] = basename($imagePath);
             }
             $requestArray['password'] = Hash::make($requestArray['password']);
             $user = User::create($requestArray);
@@ -90,7 +91,7 @@ class UserController extends Controller
 
         if ($request->has('image')) {
             $imagePath = $request->file('image')?->store(config('filesystems.local_paths.user_images'));
-            $requestArray['image'] = $imagePath;
+            $requestArray['image'] = basename($imagePath);
         }
 
         if ($request->has('password') && $requestArray['password'] !== null) {

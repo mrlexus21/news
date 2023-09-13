@@ -105,7 +105,7 @@
                             </small>
                         </td>
                         <td>
-                            <img width="50px" height="50px" src="{{ Storage::url('images/' .$post->image) }}" alt="">
+                            <img height="50px" src="{{ Storage::url('images/' .$post->image) }}" alt="">
                         </td>
                         <td>
                             @isset($post->published_at)
@@ -127,20 +127,25 @@
                         </span>
                         </td>
                         <td class="project-actions text-right">
-                            @can('update', $post)
-                                <a class="btn btn-info btn-sm" href="{{ route('admin.posts.edit', $post) }}">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    @lang('admin.edit')
-                                </a>
-                            @endcan
-                            @can('delete', $post)
-                                <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input class="btn btn-danger btn-sm" type="submit" value="@lang('admin.delete')">
-                                </form>
-                            @endcan
+                            <div class="d-flex flex-row justify-content-md-center">
+                                @can('update', $post)
+                                    <a class="btn btn-info btn-sm ml-2" href="{{ route('admin.posts.edit', $post) }}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        {{--@lang('admin.edit')--}}
+                                    </a>
+                                @endcan
+                                @can('delete', $post)
+                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a class="btn btn-danger btn-sm ml-2" href="#" onclick="this.closest('form').submit()">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        {{--<input class="btn btn-danger btn-sm" type="submit" value="@lang('admin.delete')">--}}
+                                    </form>
+                                @endcan
+                            </div>
                         </td>
                     </tr>
                 @endforeach

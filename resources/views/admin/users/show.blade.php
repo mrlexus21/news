@@ -57,7 +57,7 @@
                                     <td>@lang('admin.image')</td>
                                     <td>
                                         @isset($user->image)
-                                            <img width="250px" src="{{ Storage::url('userimages/' . $user->image) }}" alt="">
+                                            <img height="250px" src="{{ Storage::url('userimages/' . $user->image) }}" alt="">
                                         @else
                                             {!! __('admin.label_not_uploaded') !!}
                                         @endisset
@@ -95,20 +95,24 @@
                     </div>
 
                     <div class="text-center mt-5 mb-3">
-                        @can('update', $user)
-                            <a class="btn btn-info btn-sm" href="{{ route('admin.users.edit', $user) }}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                @lang('admin.edit')
-                            </a>
-                        @endcan
-                        @can('delete', $user)
-                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input class="btn btn-danger btn-sm" id="delete" type="submit" value="@lang('admin.delete')">
-                            </form>
-                        @endcan
+                        <div class="d-flex flex-row justify-content-md-start">
+                            @can('update', $user)
+                                <a class="btn btn-info btn-sm ml-2" href="{{ route('admin.users.edit', $user) }}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    {{--@lang('admin.edit')--}}
+                                </a>
+                            @endcan
+                            @can('delete', $user)
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="btn btn-danger btn-sm ml-2" href="#" onclick="this.closest('form').submit()">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                    {{--<input class="btn btn-danger btn-sm" id="delete" type="submit" value="@lang('admin.delete')">--}}
+                                </form>
+                            @endcan
+                        </div>
                     </div>
                 </div>
             </div>

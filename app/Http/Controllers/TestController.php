@@ -24,6 +24,8 @@ class TestController extends Controller
     //
     public function __invoke()
     {
+        dump(storage_path());
+        dump(storage_path('app/public/userimages'));
         //dd($this->route());
         //$post = Post::factory(1, ['user_id' => 6])->create();
         /*$post = Post::find(492);

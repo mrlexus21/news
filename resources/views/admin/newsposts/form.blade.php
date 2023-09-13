@@ -89,7 +89,7 @@
                 @endforeach
                 <div class="form-group">
                     <label>@lang('admin.image')</label><br>
-                    <img id='img-upload' src='{{ isset($post->image) ? Storage::url($post->image) : '' }}'/>
+                    <img id='img-upload' height="250px" src='{{ isset($post->image) ? Storage::url('images/' . $post->image) : '' }}'/>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file btn-border">

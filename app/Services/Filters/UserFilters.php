@@ -26,4 +26,13 @@ class UserFilters extends QueryFilter
 
         return $this->builder->where('email', 'ilike', '%' .$value . '%');
     }
+
+    public function sort($value = null)
+    {
+        return match ($value) {
+            'new' => $this->builder->orderBy('id' ,'DESC'),
+            //'old' => $this->builder->orderBy('id' ,'ASC'),
+            default => $this->builder->orderBy('id' ,'ASC'),
+        };
+    }
 }

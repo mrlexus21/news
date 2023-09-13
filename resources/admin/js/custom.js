@@ -81,3 +81,24 @@ $(document).ready( function() {
         readURL(this);
     });
 });
+
+
+let start_element = document.getElementById('showdate_start');
+if (start_element !== null) {
+    const start = datepicker(start_element, {
+        formatter: (input, date, instance) => {
+            const value = date.toLocaleDateString('sv-SE')
+            input.value = value
+        }
+    })
+}
+
+let end_element = document.getElementById('showdate_end');
+if (end_element !== null) {
+    const end = datepicker(end_element, {
+        formatter: (input, date, instance) => {
+            const value = date.toLocaleDateString('sv-SE')
+            input.value = value
+        }
+    })
+}

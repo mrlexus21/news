@@ -25,6 +25,7 @@ class UserListRequest extends FormRequest
             'role' => 'nullable|integer|exists:roles,id|max:255',
             'name' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
+            'sort' => 'nullable|string|max:255',
         ];
     }
 }

@@ -77,7 +77,7 @@ return [
      * paths default save files in local storage
      */
     'local_paths' => [
-        'news_images' => 'public/images',
-        'user_images' => 'public/userimages'
+        'news_images' => 'images/',
+        'user_images' => 'userimages/'
     ]
 ];

@@ -100,7 +100,8 @@ class PostObserver
     private function deleteImageFromEntity(Post $post): void
     {
         if (isset($post->image)) {
-            Storage::delete($post->image);
+            dump(config('filesystems.local_paths.news_images') . $post->image);
+            Storage::delete(config('filesystems.local_paths.news_images') . $post->image);
         }
     }
 
@@ -126,8 +127,9 @@ class PostObserver
      */
     private function deleteFileFromSource(string $source): void
     {
-        if (Storage::exists($source)) {
-            Storage::delete($source);
+        $filePath = config('filesystems.local_paths.news_images') . $source;
+        if (Storage::exists($filePath)) {
+            Storage::delete($filePath);
         }
     }
 
