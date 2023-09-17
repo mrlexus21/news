@@ -1,3 +1,5 @@
+import datepicker from 'js-datepicker'
+
 tinymce.init({
     selector: 'textarea',
     plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker',
