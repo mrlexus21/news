@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Auth;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,18 +10,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SubscribePostMailer extends Mailable
+class VerifyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private object $data;
+    public $user;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(object $data)
+    public function __construct(User $user)
     {
-        $this->data = $data;
+        $this->user = $user;
     }
 
     /**
@@ -29,7 +30,7 @@ class SubscribePostMailer extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('main.sub_author_posted_new_post'),
+            subject: __('auth.signup_confirmation'),
         );
     }
 
@@ -39,8 +40,8 @@ class SubscribePostMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.subscribe',
-            with: ['data' => $this->data]
+            markdown: 'emails.auth.verify',
+            with: ['data' => $this->user]
         );
     }
 

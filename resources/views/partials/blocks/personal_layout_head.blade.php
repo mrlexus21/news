@@ -4,7 +4,7 @@
             <div class="position-sticky pt-3 pb-5">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link @routeactive('personal')" aria-current="page" href="{{ route('personal') }}">
+                        <a class="nav-link @routeactive('personal.index')" aria-current="page" href="{{ route('personal.index') }}">
                             @lang('main.personal_area')
                         </a>
                     </li>

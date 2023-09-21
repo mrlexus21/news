@@ -5,7 +5,7 @@
         </div>
         <div class="advert-thumb mb-30">
             <a href="<?php echo e($adSidebar->link); ?>">
-                <img src="<?php echo e(Storage::url($adSidebar->image)); ?>" alt="<?php echo e($adSidebar->name); ?>">
+                <img src="<?php echo e(Storage::url(config('filesystems.local_paths.news_images') . $adSidebar->image)); ?>" alt="<?php echo e($adSidebar->name); ?>">
             </a>
         </div>
     </div>

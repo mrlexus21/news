@@ -57,7 +57,7 @@
             }
         });
     }
-    
+
     welcomeSlide.on('translate.owl.carousel', function () {
         var slideLayer = $("[data-animation]");
         slideLayer.each(function () {
@@ -83,7 +83,7 @@
         var anim_dur = $(this).data('duration');
         $(this).css('animation-duration', anim_dur);
     });
-    
+
     // Marquee Active Code
     if ($.fn.SimpleMarquee) {
         $('.simple-marquee-container').SimpleMarquee({
@@ -95,13 +95,14 @@
             hover: true
         });
     }
-    
+
     // Editorial Post Slides
     if ($.fn.owlCarousel) {
+        let loop = $('.owl-carousel .item').length > 1;
         $('.editorial-post-slides').owlCarousel({
             items: 1,
             margin: 0,
-            loop: true,
+            loop: loop,
             nav: false,
             dots: true,
             autoplay: true,

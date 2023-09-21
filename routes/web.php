@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\News\Admin\CategoryController;
@@ -34,6 +35,7 @@ Auth::routes([
 ]);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
+Route::get('/verify/{token}', [ RegisterController::class, 'verify' ] )->name('register.verify');
 
 $groupData = [
     'prefix' => 'admin',
@@ -62,10 +64,10 @@ Route::group($groupData, function () {
 });
 
 Route::middleware(['auth', 'throttle:60,1'])->group(function () {
-    Route::post('/subscribe.blade', [SubscribeController::class, 'subscribe'])->name('subscribe.blade');
+    Route::post('/subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
     Route::post('/unsubscribe', [SubscribeController::class, 'unsubscribe'])->name('unsubscribe');
 
-    Route::get('/personal', [PersonalController::class, 'index'])->name('personal');
+    Route::get('/personal', [PersonalController::class, 'index'])->name('personal.index');
     Route::get('/personal/authors', [PersonalController::class, 'subscribeList'])->name('personal.authors');
 });
 

@@ -6,10 +6,10 @@ tinymce.init({
     toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
     toolbar_mode: 'floating',
     language: document.documentElement.lang,
-    file_picker_callback : elFinderBrowser
+    file_picker_callback: elFinderBrowser
 });
 
-function elFinderBrowser (callback, value, meta) {
+function elFinderBrowser(callback, value, meta) {
     tinymce.activeEditor.windowManager.openUrl({
         title: 'File Manager',
         url: '/elfinder/tinymce5',
@@ -48,25 +48,26 @@ function elFinderBrowser (callback, value, meta) {
     });
 }
 
-$(document).ready( function() {
-    $(document).on('change', '.btn-file :file', function() {
+$(document).ready(function () {
+    $(document).on('change', '.btn-file :file', function () {
         var input = $(this),
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [label]);
     });
 
-    $('.btn-file :file').on('fileselect', function(event, label) {
+    $('.btn-file :file').on('fileselect', function (event, label) {
 
         var input = $(this).parents('.input-group').find(':text'),
             log = label;
 
-        if( input.length ) {
+        if (input.length) {
             input.val(log);
         } else {
-            if( log ) alert(log);
+            if (log) alert(log);
         }
 
     });
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -79,11 +80,10 @@ $(document).ready( function() {
         }
     }
 
-    $("#imgInp").change(function(){
+    $("#imgInp").change(function () {
         readURL(this);
     });
 });
-
 
 let start_element = document.getElementById('showdate_start');
 if (start_element !== null) {

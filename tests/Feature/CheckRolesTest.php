@@ -36,6 +36,7 @@ class CheckRolesTest extends TestCase
 
         $user = User::factory()->create([
             'role_id' => $roleId,
+            'status' => User::STATUS_ACTIVE,
             'password' => bcrypt($password)
         ]);
 

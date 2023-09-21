@@ -1,7 +1,7 @@
 <div class="header-advert-area">
     <?php if(isset($adHeader)): ?>
         <a href="<?php echo e($adHeader->link); ?>">
-            <img src="<?php echo e(Storage::url($adHeader->image)); ?>" alt="<?php echo e($adHeader->name); ?>">
+            <img src="<?php echo e(Storage::url(config('filesystems.local_paths.news_images') . $adHeader->image)); ?>" alt="<?php echo e($adHeader->name); ?>">
         </a>
     <?php endif; ?>
 </div>

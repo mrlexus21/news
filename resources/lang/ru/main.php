@@ -15,7 +15,7 @@ return [
     'todays_most_popular' => 'Актуально сегодня',
     'dont_miss' => 'Не пропустите',
     'advert' => 'Реклама',
-    'subscribe.blade' => 'Подпишитесь',
+    'subscribe' => 'Подпишитесь',
     'to_subscribe' => 'Подписаться',
     'your_email' => 'Введите email',
     'subscribe_success' => 'Подписка успешно оформлена',

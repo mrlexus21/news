@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Auth\VerifyMail;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -38,10 +44,19 @@ class RegisterController extends Controller
         if (Auth::user()?->hasAnyRole(['Admin', 'Chief-editor', 'Editor'])) {
             $routeName = 'admin.dashboard';
         } else {
-            $routeName = 'personal';
+            $routeName = 'personal.index';
         }
 
         return $routeName;
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+
+        return redirect()->route('login')
+            ->with('success', __('auth.registration_success_check_verify_email'));
     }
 
     /**
@@ -77,11 +92,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'role_id' => Role::where('name', 'User')->first()->id,
             'password' => Hash::make($data['password']),
+            'verify_token' => Str::random(),
+            'status' => User::STATUS_INACTIVE,
         ]);
+
+        Mail::to($user->email)->send(new VerifyMail($user));
+
+        return $user;
+    }
+
+    public function verify($token): RedirectResponse
+    {
+        if (!$user = User::where('verify_token', $token)->first()) {
+            return redirect()->route('login')
+                ->with('warning', __('auth.Sorry your link cannot be identified.'));
+        }
+
+        $user->status = User::STATUS_ACTIVE;
+        $user->verify_token = null;
+        $user->email_verified_at = now();
+        $user->save();
+
+        return redirect()->route('login')
+            ->with('success', __('auth.Your e-mail is verified. You can now login.'));
     }
 }

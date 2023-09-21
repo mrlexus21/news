@@ -39,7 +39,7 @@ class AdminNotifyMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.admin',
+            view: 'emails.admin',
             with: ['data' => $this->data]
         );
     }

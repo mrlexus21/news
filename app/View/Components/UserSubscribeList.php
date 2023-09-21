@@ -38,6 +38,6 @@ class UserSubscribeList extends Component
      */
     public function render()
     {
-        return view('components.user-subscribe.blade-list');
+        return view('components.user-subscribe-list');
     }
 }

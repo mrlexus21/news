@@ -70,6 +70,6 @@ class SubscribeNewsList extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.subscribe.blade-news-list');
+        return view('components.subscribe-news-list');
     }
 }

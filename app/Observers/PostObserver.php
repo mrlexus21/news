@@ -100,7 +100,6 @@ class PostObserver
     private function deleteImageFromEntity(Post $post): void
     {
         if (isset($post->image)) {
-            dump(config('filesystems.local_paths.news_images') . $post->image);
             Storage::delete(config('filesystems.local_paths.news_images') . $post->image);
         }
     }

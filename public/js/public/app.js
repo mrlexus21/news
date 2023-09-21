@@ -307,7 +307,7 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
             }
         });
     }
-    
+
     welcomeSlide.on('translate.owl.carousel', function () {
         var slideLayer = $("[data-animation]");
         slideLayer.each(function () {
@@ -333,7 +333,7 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
         var anim_dur = $(this).data('duration');
         $(this).css('animation-duration', anim_dur);
     });
-    
+
     // Marquee Active Code
     if ($.fn.SimpleMarquee) {
         $('.simple-marquee-container').SimpleMarquee({
@@ -345,13 +345,14 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
             hover: true
         });
     }
-    
+
     // Editorial Post Slides
     if ($.fn.owlCarousel) {
+        let loop = $('.owl-carousel .item').length > 1;
         $('.editorial-post-slides').owlCarousel({
             items: 1,
             margin: 0,
-            loop: true,
+            loop: loop,
             nav: false,
             dots: true,
             autoplay: true,
@@ -397,6 +398,7 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
     }
 
 })(jQuery);
+
 $(document).ready(function () {
     newsApp.init();
     newsApp.listenAction();
@@ -427,7 +429,7 @@ var newsApp = {
         let postId = this.dataset.postId;
 
         var arParams = {
-            'action': '/subscribe.blade',
+            'action': '/subscribe',
             'data': {
                 postId: postId
             }

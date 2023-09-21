@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
             if(Auth::user()?->hasAnyRole(['Admin','Chief-editor', 'Editor'])) {
                 $personalRoute = 'admin.dashboard';
             } elseif(Auth::check()) {
-                $personalRoute = 'personal';
+                $personalRoute = 'personal.index';
             }
 
             $view->with(['personalRoute' => $personalRoute]);
