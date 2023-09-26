@@ -26,6 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'status',
         'role_id',
         'password',
         'image',
@@ -77,14 +78,22 @@ class User extends Authenticatable
 
     public function scopeWithAdminRole($query)
     {
-        $roleIds = Role::select('id')
-            ->whereIn('name', ['Admin'])
-            ->get()
-            ->map(function($role) {
-                return $role->id;
-            })->toArray();
+        $roleAdminId = Role::select('id')
+            ->admin()
+            ->first()
+            ->id;
 
-        return $query->whereIn('role_id', $roleIds);
+        return $query->where('role_id', $roleAdminId);
+    }
+
+    public function scopeWithChiefEditorRole($query)
+    {
+        $roleEditorId = Role::select('id')
+            ->chiefEditor()
+            ->first()
+            ->id;
+
+        return $query->where('role_id', $roleEditorId);
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AdminNotifyMailer extends Mailable
+class ChiefEditorNotifyMailer extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class AdminNotifyMailer extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(object $data)
+    public function __construct($data)
     {
         $this->data = $data;
     }
@@ -39,7 +39,7 @@ class AdminNotifyMailer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.admin',
+            view: 'emails.chiefeditor',
             with: ['data' => $this->data]
         );
     }

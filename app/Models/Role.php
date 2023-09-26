@@ -11,6 +11,7 @@ class Role extends Model
     protected $table = 'roles';
     protected $guarded = false;
     public const ADMIN = 'Admin';
+    public const CHIEF_EDITOR = 'Chief-editor';
 
     public function users()
     {
@@ -20,5 +21,10 @@ class Role extends Model
     public function scopeAdmin($query)
     {
         return $query->where('name', self::ADMIN);
+    }
+
+    public function scopeChiefEditor($query)
+    {
+        return $query->where('name', self::CHIEF_EDITOR);
     }
 }

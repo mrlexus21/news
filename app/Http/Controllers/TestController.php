@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Faker\Generator as Faker;
 
@@ -24,8 +25,7 @@ class TestController extends Controller
     //
     public function __invoke()
     {
-        dump(storage_path());
-        dump(storage_path('app/public/userimages'));
+        Log::channel('database')->info('ds');
         //dd($this->route());
         //$post = Post::factory(1, ['user_id' => 6])->create();
         /*$post = Post::find(492);
