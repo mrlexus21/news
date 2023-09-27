@@ -23,7 +23,7 @@ class RegisterTest extends TestCase
     {
         $userRoleId = Role::where('name', 'User')->first()->id;
         $email = $this->faker->email;
-        $password = $this->faker->password;
+        $password = $this->faker->password(8);
 
         $response = $this->getRegisterUserResponse($email, $password);
 
@@ -46,7 +46,7 @@ class RegisterTest extends TestCase
     public function testCheckVerifyUser()
     {
         $email = $this->faker->email;
-        $password = $this->faker->password;
+        $password = $this->faker->password(8);
         $responseRegister = $this->getRegisterUserResponse($email, $password);
         $user = User::where('email', $email)->first();
 
@@ -68,7 +68,7 @@ class RegisterTest extends TestCase
     public function testCheckVerifyUserFailed()
     {
         $email = $this->faker->email;
-        $password = $this->faker->password;
+        $password = $this->faker->password(8);
         $responseRegister = $this->getRegisterUserResponse($email, $password);
         $user = User::where('email', $email)->first();
 
@@ -89,7 +89,7 @@ class RegisterTest extends TestCase
 
     private function getRegisterUserResponse(string $email, ?string $password = null): TestResponse
     {
-        $password = $password ?? $this->faker->password;
+        $password = $password ?? $this->faker->password(8);
 
         return $this->followingRedirects()->post('register',
             [

@@ -3,7 +3,7 @@
     <!-- Single Blog Post -->
     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php /** @var \App\Models\Post $post */  ?>
-        <div class="single-blog-post-slide bg-img background-overlay-5" style="background-image: url(<?php echo e(Storage::url('images/' . $post->image)); ?>);">
+        <div class="single-blog-post-slide bg-img background-overlay-5" style="background-image: url(<?php echo e($post->getImageSrc()); ?>);">
             <!-- Single Blog Post Content -->
             <div class="single-blog-post-content">
                 <div class="tags">

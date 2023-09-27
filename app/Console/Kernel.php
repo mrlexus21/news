@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('currency:sync --force')->hourly();
         $schedule->command('log:clean')->daily();
+        $schedule->command('news:sync')->hourly();
     }
 
     /**

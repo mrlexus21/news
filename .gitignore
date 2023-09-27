@@ -9,13 +9,17 @@
 .env.backup
 .env.production
 .phpunit.result.cache
+docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
+worker.log
 /.fleet
 /.idea
 /.vscode
+.editorconfig
+.phpstorm.meta.php
 /.env.dusk.local
 /.fuse_hidden*

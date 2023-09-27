@@ -17,6 +17,8 @@ class PostRepository extends CoreRepository implements PostRepositoryInterface
         'title',
         'slug',
         'image',
+        'source_image',
+        'partner_news',
         'excerpt',
         'published_at',
         'category_id'
@@ -34,6 +36,8 @@ class PostRepository extends CoreRepository implements PostRepositoryInterface
             'title',
             'slug',
             'image',
+            'source_image',
+            'partner_news',
             'excerpt',
             'is_published',
             'created_at',

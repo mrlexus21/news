@@ -19,12 +19,13 @@
                     <div class="col-sm-6">
                         <!-- select -->
                         <div class="form-group">
-                            <label for="status">@lang('admin.status')</label>
+                            <label for="status">@lang('admin.type')</label>
                             <select class="form-control custom-select" name="status" id="status">
                                 <option value="">@lang('admin.all')</option>
                                 <option value="publicated" @if(request()->query('status') === 'publicated') selected @endif>@lang('admin.published')</option>
                                 <option value="draft" @if(request()->query('status') === 'draft') selected @endif>@lang('admin.draft')</option>
                                 <option value="deleted" @if(request()->query('status') === 'deleted') selected @endif>@lang('admin.deleted')</option>
+                                <option value="external" @if(request()->query('status') === 'external') selected @endif>@lang('admin.is_external')</option>
                             </select>
                         </div>
                     </div>

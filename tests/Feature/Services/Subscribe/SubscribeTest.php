@@ -30,7 +30,9 @@ class SubscribeTest extends TestCase
             ->first()->id;
 
         $this->newPostIdWithAuthor = Post::factory(1)->create([
-            'user_id' => $this->authorId
+            'user_id' => $this->authorId,
+            'is_published' => true,
+            'published_at' => Carbon::now()
         ])->first()->id;
     }
 

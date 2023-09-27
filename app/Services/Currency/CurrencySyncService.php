@@ -2,7 +2,7 @@
 
 namespace App\Services\Currency;
 
-use App\Dto\Currency\CurrencyDto;
+use App\DTO\Currency\CurrencyDto;
 use App\Exceptions\ServiceException;
 use App\Models\Currency as Model;
 use Exception;

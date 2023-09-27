@@ -14,7 +14,7 @@
                     <div class="gazette-post-tag">
                         <a href="javascript:void();"><?php echo e($category->name); ?></a>
                     </div>
-                    <p class="editorial-post-date text-dark mb-0"><?php echo e(Helper::getCurrentDate()); ?></p>
+                    <p class="editorial-post-date text-dark mb-0"><?php echo e(getCurrentDate()); ?></p>
                 </div>
             </div>
         </div>

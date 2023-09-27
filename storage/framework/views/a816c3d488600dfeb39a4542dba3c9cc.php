@@ -83,7 +83,7 @@
                                             <a class="nav-link" href="<?php echo e(route('home')); ?>"><?php echo app('translator')->get('main.today'); ?></a>
                                         </li>
                                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <li class="nav-item <?php echo e(Helper::classActiveSegment(2, $category->slug)); ?>">
+                                            <li class="nav-item <?php echo e(classActiveSegment(2, $category->slug)); ?>">
                                                 <a class="nav-link" href="<?php echo e(route('category', $category)); ?>"><?php echo e($category->name); ?></a>
                                             </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

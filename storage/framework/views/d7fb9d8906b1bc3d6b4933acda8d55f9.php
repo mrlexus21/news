@@ -5,7 +5,7 @@
 
     <section class="single-post-area">
         <!-- Single Post Title -->
-        <div class="single-post-title bg-img background-overlay" style="background-image: url(<?php echo e(Storage::url($post->image)); ?>);">
+        <div class="single-post-title bg-img background-overlay" style="background-image: url(<?php echo e($post->getImageSrc()); ?>);">
             <div class="container h-100">
                 <div class="row h-100 align-items-end">
                     <div class="col-12">
@@ -45,6 +45,17 @@
 
                     </div>
                 </div>
+                <?php if($post->isExternal()): ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="breacumb-content d-flex align-items-center justify-content-between align-left">
+                                <p class="editorial-post-date text-dark my-3">
+                                    <a href="<?php echo e($post->source_link); ?>"><?php echo app('translator')->get('admin.source'); ?> <?php echo e($post->source_name); ?></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

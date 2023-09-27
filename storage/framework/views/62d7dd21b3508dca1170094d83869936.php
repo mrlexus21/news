@@ -3,9 +3,11 @@
 <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <!-- Single Today Post -->
     <div class="gazette-single-todays-post d-md-flex align-items-start mb-50">
-        <div class="todays-post-thumb">
-            <img src="<?php echo e(Storage::url('images/' . $post->image)); ?>" alt="">
-        </div>
+        <?php if($post->getImageSrc() !== null): ?>
+            <div class="todays-post-thumb">
+                <img src="<?php echo e($post->getImageSrc()); ?>" alt="">
+            </div>
+        <?php endif; ?>
         <div class="todays-post-content">
             <!-- Post Tag -->
             <div class="gazette-post-tag">
@@ -14,7 +16,7 @@
             <h3><a href="<?php echo e(route('newspost', [$post->category, $post])); ?>" class="font-pt mb-2"><?php echo e($post->title); ?></a></h3>
             <span class="gazette-post-date mb-2"><?php echo e($post->middleFormatDate); ?></span>
             
-            <p><?php echo e($post->excerpt); ?></p>
+            <p><?php echo $post->excerpt; ?></p>
         </div>
     </div>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

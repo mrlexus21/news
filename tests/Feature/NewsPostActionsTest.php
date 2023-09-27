@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Tests\TestCase;
-use function app;
-use function bcrypt;
-use function storage_path;
+//use function app;
+//use function bcrypt;
+//use function storage_path;
 
 class NewsPostActionsTest extends TestCase
 {

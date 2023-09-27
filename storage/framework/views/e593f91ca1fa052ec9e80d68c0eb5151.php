@@ -2,9 +2,11 @@
 <div class="editorial-post-single-slide">
     <div class="row">
         <div class="col-12 col-md-5">
-            <div class="editorial-post-thumb">
-                <img src="<?php echo e(Storage::url(config('filesystems.local_paths.news_images') . $post->image)); ?>" alt="">
-            </div>
+            <?php if($post->getImageSrc() !== null): ?>
+                <div class="editorial-post-thumb">
+                    <img src="<?php echo e($post->getImageSrc()); ?>" alt="">
+                </div>
+           <?php endif; ?>
         </div>
         <div class="col-12 col-md-7">
             <div class="editorial-post-content">
@@ -14,7 +16,7 @@
                 </div>
                 <h2><a href="<?php echo e(route('newspost', [$post->category, $post])); ?>" class="font-pt mb-15"><?php echo e($post->title); ?></a></h2>
                 <p class="editorial-post-date mb-15"><?php echo e($post->middleFormatDate); ?></p>
-                <p><?php echo e($post->excerpt); ?></p>
+                <p><?php echo $post->excerpt; ?></p>
             </div>
         </div>
     </div>

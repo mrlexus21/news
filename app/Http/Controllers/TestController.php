@@ -23,9 +23,10 @@ use Faker\Generator as Faker;
 class TestController extends Controller
 {
     //
-    public function __invoke()
+    public function __invoke(Faker $faker)
     {
-        Log::channel('database')->info('ds');
+        dump($faker->email);
+        dump($faker->password);
         //dd($this->route());
         //$post = Post::factory(1, ['user_id' => 6])->create();
         /*$post = Post::find(492);

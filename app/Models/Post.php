@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
@@ -66,6 +67,11 @@ class Post extends Model
         return $this->is_published;
     }
 
+    public function isExternal()
+    {
+        return $this->partner_news;
+    }
+
     public function isShowInMainSlider()
     {
         return $this->main_slider;
@@ -74,6 +80,13 @@ class Post extends Model
     public function getContent()
     {
         return new HtmlString($this->content);
+    }
+
+    public function getImageSrc()
+    {
+        return $this->isExternal() && !empty($this->source_image)
+            ? $this->source_image
+            : ($this->image ? Storage::url(config('filesystems.local_paths.news_images') . $this->image) : null);
     }
 
     /**
@@ -119,6 +132,11 @@ class Post extends Model
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);
+    }
+
+    public function scopeExternal($query)
+    {
+        return $query->where('partner_news', true);
     }
 
     public function scopeCategory($query, $cid)

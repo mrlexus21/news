@@ -3,7 +3,7 @@
 namespace App\Services\Currency\DataManagers;
 
 use App;
-use App\Dto\Currency\CurrencyDto;
+use App\DTO\Currency\CurrencyDto;
 use App\Exceptions\ServiceException;
 use App\Services\Currency\Interfaces\CurrencyClientInterface;
 use App\Services\Currency\Interfaces\CurrencyDataManagerInterface;

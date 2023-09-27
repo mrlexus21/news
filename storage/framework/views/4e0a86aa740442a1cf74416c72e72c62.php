@@ -2,6 +2,7 @@
     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-12 col-md-<?php echo e($loop->iteration > 3 ? 6 : 4); ?>">
             <!-- Gazette Welcome Post -->
+            ddddddddd
             <div class="gazette-welcome-post">
                 <!-- Post Tag -->
                 <div class="gazette-post-tag">
@@ -10,11 +11,13 @@
                 <h2 class="font-pt"><?php echo e($post->title); ?></h2>
                 <p class="gazette-post-date"><?php echo e($post->middleFormatDate); ?></p>
                 <!-- Post Thumbnail -->
-                <div class="blog-post-thumbnail my-5">
-                    <img src="<?php echo e(Storage::url('images/' . $post->image)); ?>" alt="post-thumb">
-                </div>
+                <?php if($post->getImageSrc() !== null): ?>
+                    <div class="blog-post-thumbnail my-5">
+                        <img src="<?php echo e($post->getImageSrc()); ?>" alt="post-thumb">
+                    </div>
+                <?php endif; ?>
                 <!-- Post Excerpt -->
-                <p><?php echo e($post->excerpt); ?></p>
+                <p><?php echo $post->excerpt; ?></p>
                 <!-- Reading More -->
                 <div class="post-continue-reading-share mt-30">
                     <div class="post-continue-btn">
