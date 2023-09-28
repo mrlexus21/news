@@ -46,7 +46,9 @@ class SubscribeTest extends TestCase
     public function testNotFoundNotSetAuthorFail()
     {
         $newPostId = Post::factory(1)->create([
-            'user_id' => null
+            'user_id' => null,
+            'is_published' => true,
+            'published_at' => null,
         ])->first()->id;
         //$newPostId = Post::whereNull('user_id')->first()->id;
 

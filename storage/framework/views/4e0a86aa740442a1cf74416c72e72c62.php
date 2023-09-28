@@ -2,7 +2,6 @@
     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-12 col-md-<?php echo e($loop->iteration > 3 ? 6 : 4); ?>">
             <!-- Gazette Welcome Post -->
-            ddddddddd
             <div class="gazette-welcome-post">
                 <!-- Post Tag -->
                 <div class="gazette-post-tag">
