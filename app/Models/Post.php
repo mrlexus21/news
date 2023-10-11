@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Filters\QueryFilter;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,7 @@ use Jenssegers\Date\Date;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, HasEvents;
+    use HasFactory, SoftDeletes, HasEvents, Searchable;
 
     protected $table = 'posts';
     protected $guarded = false;

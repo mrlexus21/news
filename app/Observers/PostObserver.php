@@ -6,14 +6,25 @@ use App\Events\PostPublicatedEvent;
 use App\Models\Post;
 use App\Repositories\PostCachedRepository;
 use Carbon\Carbon;
+use Elasticsearch\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Throwable;
 
 class PostObserver
 {
+    /** @var \Elasticsearch\Client */
+    private $elasticsearch;
+
+    public function __construct(Client $elasticsearch)
+    {
+        $this->elasticsearch = $elasticsearch;
+    }
+
     public function creating(Post $post): void
     {
         $this->setSlug($post);
@@ -30,6 +41,22 @@ class PostObserver
 
         if (($post->is_published === true) && ($post->published_at !== null)) {
             Event::dispatch(new PostPublicatedEvent($post));
+        }
+    }
+
+    public function saved(Post $post)
+    {
+        try {
+            if ($post->isPublished()) {
+                $this->elasticsearch->index([
+                    'index' => $post->getSearchIndex(),
+                    'type' => $post->getSearchType(),
+                    'id' => $post->getKey(),
+                    'body' => $post->toSearchArray(),
+                ]);
+            }
+        } catch (Throwable $e) {
+            Log::channel('database')->critical($e->getMessage());
         }
     }
 
@@ -91,6 +118,16 @@ class PostObserver
     public function deleted(Post $post)
     {
         $this->forgetOldDataPostRepository($post);
+
+        try {
+            $this->elasticsearch->delete([
+                'index' => $post->getSearchIndex(),
+                'type' => $post->getSearchType(),
+                'id' => $post->getKey(),
+            ]);
+        } catch(Throwable $e) {
+            Log::channel('database')->critical($e->getMessage());
+        }
     }
 
     /**

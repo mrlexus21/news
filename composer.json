@@ -9,6 +9,7 @@
         "barryvdh/laravel-elfinder": "^0.5.2",
         "danielme85/laravel-log-to-db": "^4.0",
         "diglactic/laravel-breadcrumbs": "^8.1.1",
+        "elasticsearch/elasticsearch": "^8.10",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/date": "^4.0",
         "laravel-lang/lang": "^10.0",

@@ -5,9 +5,11 @@ namespace App\Repositories;
 use App\Models\Post as Model;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Services\Filters\NewsPostFilters;
+use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
 class PostRepository extends CoreRepository implements PostRepositoryInterface
@@ -23,6 +25,15 @@ class PostRepository extends CoreRepository implements PostRepositoryInterface
         'published_at',
         'category_id'
     ];
+
+    /** @var \Elasticsearch\Client */
+    private $elasticsearch;
+
+    public function __construct(Client $elasticsearch)
+    {
+        parent::__construct();
+        $this->elasticsearch = $elasticsearch;
+    }
 
     protected function getModelClass(): string
     {
@@ -201,5 +212,38 @@ class PostRepository extends CoreRepository implements PostRepositoryInterface
         }
 
         return $query->get();
+    }
+
+    public function search(?string $query = ''): \Illuminate\Support\Collection
+    {
+        $items = $this->searchOnElasticsearch($query);
+        return $this->buildCollection($items);
+    }
+
+    private function searchOnElasticsearch(string $query = ''): array
+    {
+        $model = new Model;
+        $items = $this->elasticsearch->search([
+            'index' => $model->getSearchIndex(),
+            'type' => $model->getSearchType(),
+            'body' => [
+                'query' => [
+                    'multi_match' => [
+                        'fields' => ['title^5', 'content'],
+                        'query' => $query,
+                    ],
+                ],
+            ],
+        ]);
+        return $items;
+    }
+    private function buildCollection(array $items): \Illuminate\Support\Collection
+    {
+        $ids = Arr::pluck($items['hits']['hits'], '_id');
+        return Model::select('*')
+            ->whereIn('id', $ids)
+            ->limit(config('services.search.max_result', 50))
+            ->get()
+            ->sortBy(fn($post) => array_search($post->getKey(), $ids));
     }
 }

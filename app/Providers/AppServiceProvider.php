@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);
         }
+
+        $this->bindSearchClient();
     }
 
     /**
@@ -49,6 +53,15 @@ class AppServiceProvider extends ServiceProvider
 
                 return collect($value)->recursive($depth, ($currentLayer + 1));
             });
+        });
+    }
+
+    private function bindSearchClient()
+    {
+        $this->app->bind(Client::class, function ($app) {
+            return ClientBuilder::create()
+                ->setHosts($app['config']->get('services.search.hosts'))
+                ->build();
         });
     }
 }
