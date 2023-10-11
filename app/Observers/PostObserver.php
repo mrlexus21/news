@@ -6,7 +6,7 @@ use App\Events\PostPublicatedEvent;
 use App\Models\Post;
 use App\Repositories\PostCachedRepository;
 use Carbon\Carbon;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;

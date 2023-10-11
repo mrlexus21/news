@@ -90,8 +90,8 @@
                                     </ul>
                                     <!-- Search Form -->
                                     <div class="header-search-form mr-auto">
-                                        <form action="#">
-                                            <input type="search" placeholder="<?php echo app('translator')->get('main.search_placeholder'); ?>" id="search" name="search">
+                                        <form action="<?php echo e(route('search')); ?>">
+                                            <input type="search" placeholder="<?php echo app('translator')->get('main.search_placeholder'); ?>" id="search" name="q">
                                             <input class="d-none" type="submit" value="submit">
                                         </form>
                                     </div>

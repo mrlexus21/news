@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Console\Command;
 
 class ReindexCommand extends Command

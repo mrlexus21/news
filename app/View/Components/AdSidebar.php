@@ -10,7 +10,7 @@ use Illuminate\View\Component;
 
 class AdSidebar extends Component
 {
-    public Ad $adSidebar;
+    public ?Ad $adSidebar;
     /**
      * Create a new component instance.
      */

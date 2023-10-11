@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Post as Model;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Services\Filters\NewsPostFilters;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
