@@ -12,8 +12,6 @@ use Tests\DuskTestCase;
 
 class UserListTest extends DuskTestCase
 {
-    use DatabaseTransactions;
-
     protected function setUp():void
     {
         parent::setUp();
