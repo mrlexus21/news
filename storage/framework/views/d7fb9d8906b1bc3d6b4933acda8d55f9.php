@@ -1,4 +1,6 @@
 <?php $__env->startSection('title', $post->title . __('admin.news')); ?>
+<?php $__env->startSection('meta_description', __('main.meta_post', ['post' => $post->title])); ?>
+
 <?php /** @var \App\Models\Post $post */  ?>
 
 <?php $__env->startSection('content'); ?>

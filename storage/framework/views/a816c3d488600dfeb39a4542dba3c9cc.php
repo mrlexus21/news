@@ -13,7 +13,9 @@
 
     <!-- Title  -->
     <title><?php echo $__env->yieldContent('title'); ?></title>
-
+    <meta name="keywords" content="<?php echo $__env->yieldContent('meta_keywords', __('main.meta_keywords')); ?>">
+    <meta name="description" content="<?php echo $__env->yieldContent('meta_description', __('main.meta_description')); ?>">
+    <link rel="canonical" href="<?php echo e(url()->current()); ?>"/>
     <!-- Favicon  -->
     <link rel="icon" href="favicon.ico">
 

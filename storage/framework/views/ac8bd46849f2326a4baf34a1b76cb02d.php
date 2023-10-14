@@ -1,5 +1,5 @@
 <?php $__env->startSection('title', __('admin.category') . ' ' . $category->name); ?>
-
+<?php $__env->startSection('meta_description', __('main.meta_category', ['category' => $category->name])); ?>
 <?php $__env->startSection('content'); ?>
 
 <?php /** @var \App\Models\Category $category */  ?>
