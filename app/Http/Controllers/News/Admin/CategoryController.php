@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\News\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCategoryCreateRequest;
 use App\Http\Requests\NewsCategoryUpdateRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class CategoryController extends BaseController
 {
@@ -19,6 +22,8 @@ class CategoryController extends BaseController
 
     /**
      * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -28,6 +33,8 @@ class CategoryController extends BaseController
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -36,6 +43,9 @@ class CategoryController extends BaseController
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param NewsCategoryCreateRequest $request
+     * @return RedirectResponse
      */
     public function store(NewsCategoryCreateRequest $request)
     {
@@ -55,6 +65,9 @@ class CategoryController extends BaseController
 
     /**
      * Display the specified resource.
+     *
+     * @param Category $category
+     * @return Application|Factory|View
      */
     public function show(Category $category)
     {
@@ -63,6 +76,9 @@ class CategoryController extends BaseController
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param Category $category
+     * @return Application|Factory|View
      */
     public function edit(Category $category)
     {
@@ -71,6 +87,10 @@ class CategoryController extends BaseController
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param NewsCategoryUpdateRequest $request
+     * @param Category $category
+     * @return RedirectResponse
      */
     public function update(NewsCategoryUpdateRequest $request, Category $category)
     {
@@ -100,6 +120,9 @@ class CategoryController extends BaseController
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param Category $category
+     * @return Application|RedirectResponse|Redirector
      */
     public function destroy(Category $category)
     {
