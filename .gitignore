@@ -23,3 +23,5 @@ worker.log
 .phpstorm.meta.php
 /.env.dusk.local
 /.fuse_hidden*
+/docker/postgres/data/*
+/docker/es/*

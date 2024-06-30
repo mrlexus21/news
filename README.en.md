@@ -6,7 +6,7 @@ This project of the news portal was created for quick posting of news,
 Search and aggregation information from external resources.
 
 ## Preliminary requirements
-* PHP ^ 8.1
+* PHP ^ 8.0
 * Composer.
 * Node.js (V14 +) & NPM (6+)
 * PostgreSQL
