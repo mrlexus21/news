@@ -31,14 +31,14 @@
 cp .env.example .env
 docker-compose up -d
 docker exec -it news-app composer install && npm install && npm run prod
-docker exec -it news-app php artisan key:generate && php artisan migrate --seed && php artisan storage:link 
+docker exec -it news-app php artisan key:generate && php artisan migrate --seed && php artisan storage:link
 ```
 
 ## Команды
 
 ### Сборка контейнеров
 ```bash
-docker-compose build 
+docker-compose build
 ```
 
 ### Вход в консоль докера
@@ -48,7 +48,7 @@ docker exec -it news-app bash
 
 ### Запуск контейнеров
 ```bash
-docker-compose up -d 
+docker-compose up -d
 ```
 
 ### Остановка контейнеров

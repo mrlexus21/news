@@ -30,7 +30,7 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
 RUN pecl install redis amqp imagick xdebug igbinary \
     && docker-php-ext-enable redis amqp imagick xdebug igbinary
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
 # Get latest Composer
